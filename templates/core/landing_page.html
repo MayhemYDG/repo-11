@@ -1,0 +1,317 @@
+{% load static %}
+!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Mercury Bank</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/landingbootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/venobox/venobox.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <style>
+  #hero {
+    margin-top: 10%;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+      <!-- <h1 class="logo mr-auto"><a href="index.html">Banking System</a></h1> -->
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <a href="index.html" class="logo mr-auto"><img src="https://i.imgur.com/AV69Cxx.png" alt="" class="img-fluid"></a>
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+<!--          <li class="active"><a href="index.html">Home</a></li>-->
+<!--          <li><a href="#about">About</a></li>-->
+<!--          <li><a href="#services">Services</a></li>-->
+<!--          <li><a href="#portfolio">Portfolio</a></li>-->
+<!--          <li><a href="#team">Team</a></li>-->
+<!--          <li><a href="#pricing">Pricing</a></li>-->
+<!--          <li class="drop-down"><a href="">Drop Down</a>-->
+<!--            <ul>-->
+<!--              <li><a href="#">Drop Down 1</a></li>-->
+<!--              <li class="drop-down"><a href="#">Deep Drop Down</a>-->
+<!--                <ul>-->
+<!--                  <li><a href="#">Deep Drop Down 1</a></li>-->
+<!--                  <li><a href="#">Deep Drop Down 2</a></li>-->
+<!--                  <li><a href="#">Deep Drop Down 3</a></li>-->
+<!--                  <li><a href="#">Deep Drop Down 4</a></li>-->
+<!--                  <li><a href="#">Deep Drop Down 5</a></li>-->
+<!--                </ul>-->
+<!--              </li>-->
+<!--              <li><a href="#">Drop Down 2</a></li>-->
+<!--              <li><a href="#">Drop Down 3</a></li>-->
+<!--              <li><a href="#">Drop Down 4</a></li>-->
+<!--            </ul>-->
+<!--          </li>-->
+          <li><a href="{% url 'accounts:user_login' %}">Login</a></li>
+
+        </ul>
+      </nav><!-- .nav-menu -->
+
+      <a href="{% url 'accounts:user_registration' %}" class="get-started-btn scrollto">Register here</a>
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+
+    <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+      <div class="row justify-content-center">
+        <div class="col-xl-7 col-lg-9 text-center">
+          <h1>Banking built for startups</h1>
+            <br>
+          <h2>Mercury makes bank accounts that help tech companies scale </h2>
+                <!--<br><br>You can find the sourse code on <a href="https://github.com/saadmk11/banking-system">GitHub</a></h2> -->
+            <br>
+            <a href="{% url 'accounts:user_registration' %}" class="btn btn-secondary">Open Account</a>
+            <!-- <a href="https://github.com/saadmk11/banking-system" class="btn btn-secondary">GitHub</a> -->
+
+<!-- <br><br> -->
+        <div class="container">
+            <h1 class="display-4"></h1>
+<div class="text-center" data-aos="fade-up" data-aos-delay="100">
+<!--<img class="styles__laptop_26vTd" src="https://mercury.com/icons/landing-page/laptop-2x.png">-->
+<img src="https://mercury.com/icons/landing-page/laptop-2x.png" class="img-fluid" style="max-width: 75%;" alt="Responsive image">
+</div>
+<!--        </div>-->
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+    <!-- ======= About Video Section ======= -->
+    <section id="about-video" class="about-video">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+          <div class="col-lg-6 video-box align-self-baseline" data-aos="fade-right" data-aos-delay="100">
+            <img src="https://bootstrapmade.com/demo/templates/Bootslander/assets/img/details-2.png" class="img-fluid" alt="" style="height:50%;">
+<!--            <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>-->
+          </div>
+
+          <div class="col-lg-6 pt-3 pt-lg-0 content" data-aos="fade-left" data-aos-delay="100">
+            <h3>Get full-stack bank accounts.</h3>
+            <p class="font-italic">
+            </p>
+<!--            <ul>-->
+<!--              <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>-->
+<!--              <li><i class="bx bx-check-double"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>-->
+<!--              <li><i class="bx bx-check-double"></i> Voluptate repellendus pariatur reprehenderit corporis sint.</li>-->
+<!--              <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>-->
+<!--            </ul>-->
+            <p>
+                Open FDIC-insured bank accounts that come with API access, virtual cards, team management, and a lot more.
+
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End About Video Section -->
+
+
+  <!-- ======= Pricing Section ======= -->
+    <section id="pricing" class="pricing">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Account Tiers</h2>
+          <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6" data-aos="zoom-im" data-aos-delay="100">
+            <div class="box">
+              <h3>Standard</h3>
+              <h4><sup>$</sup>0<span> / month</span></h4>
+              <ul>
+                <li>$0 Minimum</li>
+                <li>No minimum balances</li>
+                <li>Free Virtual Cards</li>
+                <li>No Fee ATM Network</li>
+                <!-- <li class="na">Pharetra massa</li>
+                <li class="na">Massa ultricies mi</li> -->
+              </ul>
+              <!-- <div class="btn-wrap">
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="100">
+            <div class="box featured">
+              <h3>Business</h3>
+              <h4><sup>$</sup>9<span> / month</span></h4>
+              <ul>
+                <li>API Access</li>
+                <li>Treasury Management</li>
+                <li>Unlimited Collaborators</li>
+                <li>Free Domestic Transfers</li>
+              </ul>
+                <!-- <li class="na">Massa ultricies mi</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="100">
+            <div class="box">
+              <h3>Tea Room</h3>
+              <h4><sup>$</sup>19<span> / month</span></h4>
+              <ul>
+                <li>Free Wires Transfers</li>
+                <li>Free International Wires</li>
+                <li>Free Bank Accounts</li>
+                <li>Mercury Tea Beta Access</li>
+
+              </ul>
+              <!-- <div class="btn-wrap">
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div> -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Pricing Section -->
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+<!--          <div class="col-lg-3 col-md-6 footer-contact">-->
+<!--            <h3>OnePage</h3>-->
+<!--            <p>-->
+<!--              A108 Adam Street <br>-->
+<!--              New York, NY 535022<br>-->
+<!--              United States <br><br>-->
+<!--              <strong>Phone:</strong> +1 5589 55488 55<br>-->
+<!--              <strong>Email:</strong> info@example.com<br>-->
+<!--            </p>-->
+<!--          </div>-->
+
+<!--          <div class="col-lg-2 col-md-6 footer-links">-->
+<!--            <h4>Useful Links</h4>-->
+<!--            <ul>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>-->
+<!--            </ul>-->
+<!--          </div>-->
+
+<!--          <div class="col-lg-3 col-md-6 footer-links">-->
+<!--            <h4>Our Services</h4>-->
+<!--            <ul>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>-->
+<!--            </ul>-->
+<!--          </div>-->
+
+<!--          <div class="col-lg-4 col-md-6 footer-newsletter">-->
+<!--            <h4>Join Our Newsletter</h4>-->
+<!--            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>-->
+<!--            <form action="" method="post">-->
+<!--              <input type="email" name="email"><input type="submit" value="Subscribe">-->
+<!--            </form>-->
+<!--          </div>-->
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container d-md-flex py-4">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <a href="https://imgur.com/LUdKjF6"><img src="https://i.imgur.com/LUdKjF6.png" title="source: imgur.com" /></a>
+            <!-- <span>Banking services provided by Evolve Bank & Trust; Member FDIC</span> -->
+          </div>
+        </div>
+
+<!--      <div class="mr-md-auto text-center text-md-left">-->
+<!--        <div class="copyright">-->
+<!--          &copy; Copyright <strong><span>OnePage</span></strong>. All Rights Reserved-->
+<!--        </div>-->
+<!--        <div class="credits">-->
+<!--          &lt;!&ndash; All the links in the footer should remain intact. &ndash;&gt;-->
+<!--          &lt;!&ndash; You can delete the links only if you purchased the pro version. &ndash;&gt;-->
+<!--          &lt;!&ndash; Licensing information: https://bootstrapmade.com/license/ &ndash;&gt;-->
+<!--          &lt;!&ndash; Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/onepage-multipurpose-bootstrap-template/ &ndash;&gt;-->
+<!--          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="social-links text-center text-md-right pt-3 pt-md-0">-->
+<!--        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>-->
+<!--        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>-->
+<!--        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>-->
+<!--        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>-->
+<!--        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>-->
+<!--      </div>-->
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+<!--  <div id="preloader"></div>-->
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/Landingjquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/landingbootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+<!--  <script src="assets/vendor/php-email-form/validate.js"></script>-->
+  <script src="{% static 'vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'vendor/counterup/counterup.min.js' %}"></script>
+  <script src="{% static 'vendor/venobox/venobox.min.js' %}"></script>
+  <script src="{% static 'vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>

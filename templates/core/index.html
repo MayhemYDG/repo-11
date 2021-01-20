@@ -1,0 +1,268 @@
+{% extends 'core/base.html' %}
+
+{% block head_title %}Mercury{% endblock %}
+
+{% block content %}
+<!--    <div class="container mx-auto flex flex-col md:flex-row items-center my-12 md:my-24">-->
+        <!--Left Col-->
+<!--        <div class="flex flex-col w-full lg:w-1/2 justify-center items-start pt-12 pb-24 px-6">-->
+{% if request.user.is_authenticated %}
+<!--<div class="jumbotron">-->
+<!-- <div class="col-xl-3 col-md-6 mb-4">-->
+<!--              <div class="card border-left-warning shadow h-100 py-2">-->
+<!--                <div class="card-body">-->
+<!--                  <div class="row no-gutters align-items-center">-->
+<!--                    <div class="col mr-2">-->
+<!--                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Money in</div>-->
+<!--                      <div class="h5 mb-0 font-weight-bold text-gray-800">${{ money_in }}</div>-->
+<!--                    </div>-->
+<!--                    <div class="col-auto">-->
+<!--                      <i class="fas fa-comments fa-2x text-gray-300"></i>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--</div>-->
+<!--<div class="jumbotron">-->
+<!--<div class="col-xl-3 col-md-6 mb-4">-->
+<!--              <div class="card border-left-warning shadow h-100 py-2">-->
+<!--                <div class="card-body">-->
+<!--                  <div class="row no-gutters align-items-center">-->
+<!--                    <div class="col mr-2">-->
+<!--                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Money out</div>-->
+<!--                      <div class="h5 mb-0 font-weight-bold text-gray-800">${{ money_out }}</div>-->
+<!--                    </div>-->
+<!--                    <div class="col-auto">-->
+<!--                      <i class="fas fa-comments fa-2x text-gray-300"></i>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-top justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Main Dashboard - ITG Advisory Group LLC</h1>
+          </div>
+
+          <div class="row">
+
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Money In (last 30 days)</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">$ 37,312.28</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Earnings (Annual) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Money Out (last 30 days)</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">$ 35,951.00</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tasks Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Your current Balance:</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                        <div class="col-auto">
+
+                    {% for i in user_data %}
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">$ 6,456.23</div>
+                            {% endfor %}
+                        </div>
+                        <div class="col">
+                          <div class="progress progress-sm mr-2">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+<!--            &lt;!&ndash; Pending Requests Card Example &ndash;&gt;-->
+<!--            <div class="col-xl-3 col-md-6 mb-4">-->
+<!--              <div class="card border-left-warning shadow h-100 py-2">-->
+<!--                <div class="card-body">-->
+<!--                  <div class="row no-gutters align-items-center">-->
+<!--                    <div class="col mr-2">-->
+<!--                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>-->
+<!--                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>-->
+<!--                    </div>-->
+<!--                    <div class="col-auto">-->
+<!--                      <i class="fas fa-comments fa-2x text-gray-300"></i>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div class="row">-->
+
+<!--            <div class="col-lg-6">-->
+
+              <!-- Default Card Example -->
+<!--              <div class="card mb-4">-->
+<!--                <div class="card-header">-->
+<!--                  Deposits in last 30 days -->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                  This card uses Bootstrap's default styling with no utility classes added. Global styles are the only things modifying the look and feel of this default card example.-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--              &lt;!&ndash; Basic Card Example &ndash;&gt;-->
+<!--              <div class="card shadow mb-4">-->
+<!--                <div class="card-header py-3">-->
+<!--                  <h6 class="m-0 font-weight-bold text-primary">Welcome {{ request.user.first_name }}, <br> Here are your total balance</h6>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                    Your current Total Balance:-->
+<!--                    {% for i in user_data %}-->
+<!--                    {{ i.balance }}-->
+<!--                    {% endfor %}-->
+<!--&lt;!&ndash;                  The styling for this basic card example is created by using default Bootstrap utility classes. By using utility classes, the style of the card component can be easily modified with no need for any custom CSS!&ndash;&gt;-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--            </div>-->
+            </div>
+            <div class="col-lg-6">
+
+              <!-- Dropdown Card Example -->
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Welcome {{ request.user.first_name }}, <br> Here are your company's most recent recent deposits:</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+
+                        <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                        <th>date</th>
+                        <th>Amount</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                   <tr>
+                      {% for i in deposit_data %}
+                       <td> {{i.timestamp }}</td>
+                       <td> ${{ i.amount }}</td>
+
+                   </tr>
+                  {% endfor%}
+                  </tbody>
+                </table>
+                        </div>
+                </div>
+              </div>
+            </div>
+              <div class="col-lg-6">
+              <!-- Collapsable Card Example -->
+              <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                  <h6 class="m-0 font-weight-bold text-primary">Here are your company's most recent recent withdrawals:</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="collapseCardExample">
+                  <div class="card-body">
+                       <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                        <th>date</th>
+                        <th>Amount</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                   <tr>
+                      {% for i in with_data %}
+                       <td> {{i.timestamp }}</td>
+                       <td> ${{ i.amount }}</td>
+
+                   </tr>
+                  {% endfor%}
+
+ </tbody>
+                </table>
+<!--                    This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!-->
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+          </div>
+
+        <!-- /.container-fluid -->
+
+
+
+
+
+{% else %}
+<div class="jumbotron">
+<!--    <div class="container">-->
+         <div class="container">
+            <h1 class="display-7">Banking System</h1>
+            <p class="lead">
+                This is an Example web application created using django.
+                You can find the sourse code on <a href="https://github.com/saadmk11/banking-system">GitHub</a>
+            </p>
+
+            <a href="{% url 'accounts:user_registration' %}" class="btn btn-secondary">Register</a>
+            <a href="https://github.com/saadmk11/banking-system" class="btn btn-secondary">GitHub</a>
+
+<!--          </div>-->
+        <!--Right Col-->
+             <br>
+             <br>
+        <div class="container">
+            <h1 class="display-4">$$$</h1>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+<!--    </div>-->
+{% endblock %}
+
+
+

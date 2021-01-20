@@ -1,0 +1,47 @@
+<!--<nav class="flex items-center justify-between flex-wrap bg-gray-800 p-6">-->
+<!--    <div class="flex items-center flex-shrink-0 text-white mr-6">-->
+<!--        <span class="font-semibold text-xl tracking-tight">Banking System</span>-->
+<!--    </div>-->
+<!--    <div class="block lg:hidden">-->
+<!--        <button class="flex items-center px-3 py-2 border rounded text-white border-white-400 hover:text-white hover:border-white">-->
+<!--            <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>-->
+<!--        </button>-->
+<!--    </div>-->
+<!--    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">-->
+
+        {% if request.user.is_authenticated %}
+<li class="nav-item dropdown">
+<!--            <div class="text-md lg:flex-grow">-->
+<!--                <a href="{% url 'transactions:transaction_report' %}" >-->
+<!--                    <span class="mr-2 text-gray-500">Transaction Report</span>-->
+<!--                </a>-->
+<!--                <a href="{% url 'transactions:deposit_money' %}" >-->
+<!--                   <span class="mr-2 text-gray-500">Deposit</span>-->
+<!--                </a>-->
+<!--                <a href="{% url 'transactions:withdraw_money' %}" >-->
+<!--                  <span class="mr-2 text-gray-500">Withdraw</span>-->
+<!--                </a>-->
+<!--                <a href="{% url 'transactions:statements' %}" >-->
+<!--                  <span class="mr-2 text-gray-500">Statements</span>-->
+<!--                </a>-->
+<!--            </div>-->
+<!--            <div>-->
+                <a href="{% url 'accounts:user_logout' %}"><span class="mr-2 text-gray-500">Logout</span></a>
+</li>
+<!--            </div>-->
+        {% else %}
+<li class="nav-item dropdown no-arrow mx-1">
+
+
+                <a href="{% url 'accounts:user_login' %}"><span class="mr-2 text-gray-500">Login</span></a>
+    <a href="{% url 'accounts:user_registration' %}"><span class="mr-2 text-gray-500">Register</span></a>
+
+</li>
+        {% endif %}
+    </div>
+</nav>
+
+
+
+
+

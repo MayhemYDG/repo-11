@@ -17,6 +17,7 @@ module.exports = {
         title: 'Penpal',
         path: '/'
       }
+    ]
   },
   plugins: [`@adobe/gatsby-theme-aio`],
   pathPrefix: process.env.PATH_PREFIX || '/testing/'

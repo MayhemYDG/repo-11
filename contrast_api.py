@@ -190,6 +190,14 @@ class ContrastTeamServer:
             call, "applications", api_key, body=body, method="POST"
         )
 
+    def org_traces_app(self, org_id, app_id, api_key):
+        """Organization specific API call to list all traces (vulnerabilities) for an application."""
+        call = org_id + "/traces/" + app_id + "/filter?expand=application&limit=500"
+
+        traces = self.paginate_through_all(call, "traces", api_key=api_key)
+
+        return traces
+
     @staticmethod
     def format_time(timestamp):
         """Helper function to format timestamps from the responses."""

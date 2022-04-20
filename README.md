@@ -34,6 +34,10 @@ Each script **requires** the following environment variables at minimum:
 
 ### Create application [`contrast_create_application.py`](contrast_create_application.py)
 
+Creates an application with the specified name and language.
+
+Note, it is not required to create an application up-front, as the agents will do that when loaded into a new application, however, it may be beneficial to create custom named applications, e.g. when merging. See [Knowledge Base](https://support.contrastsecurity.com/hc/en-us/articles/360060719052-How-to-create-a-custom-name-for-a-merged-group-of-Applications).
+
 Requires additional options:
 - Application name
 - Language of application
@@ -41,7 +45,7 @@ Requires additional options:
 
 Full usage information:
 
-```bash
+```
 usage: contrast_create_application.py [-h] -n APP_NAME -l {DOTNET,DOTNET_CORE,GO,JAVA,NODE,PHP,PYTHON,RUBY} -o ORG_ID [-c CODE] [-g [GROUPS ...]] [-m METADATA] [-t [TAGS ...]]
 
 Create an application on Contrast.

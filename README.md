@@ -114,6 +114,44 @@ Given a superadmin set of credentials, this script will loop through all organiz
 |--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
 |WebGoat      |46da4e47\-d8f9\-404d\-abe7\-29a2baf22a80|2139f92a\-c115\-4e05\-8b49\-c1f52df33a5d|Demo                |K3PU\-B3SN\-RY4O\-OOK0|SQL Injection from "account\_name" Parameter on "/WebGoat/attack" page|SQL Injection       |Critical            |High                |High                |Reported            |2022\-02\-18T11:21:00|2022\-03\-02T10:58:00|                    |
 
+
+### Set status of a vulnerability [`contrast_mark_vulnerabilities.py`](contrast_mark_vulnerabilities.py)
+
+Requires additional options:
+- Vulnerability (trace) ID(s)
+- Status
+- Organization ID
+
+Full usage information:
+
+```
+usage: contrast_mark_vulnerabilities.py [-h] -t [TRACE_ID ...] -s
+                                        {Reported,Suspicious,Confirmed,NotAProblem,Remediated,Fixed}
+                                        [-b {FP,EC,SC,OT,URL}] -o ORG_ID
+                                        [-m MESSAGE]
+
+Set the status of Contrast vulnerabilities with an optional comment.
+
+options:
+  -h, --help            show this help message and exit
+  -t [TRACE_ID ...], --trace-id [TRACE_ID ...]
+                        ID(s) of the trace(s) you want to update.
+  -s {Reported,Suspicious,Confirmed,NotAProblem,Remediated,Fixed}, --status {Reported,Suspicious,Confirmed,NotAProblem,Remediated,Fixed}
+                        Status to mark these vulnerabilities.
+  -b {FP,EC,SC,OT,URL}, --sub-status {FP,EC,SC,OT,URL}
+                        Substatus to mark these vulnerabilities when using
+                        NotAProblem. Allowed values: {'FP': 'False Positive',
+                        'EC': 'Attack is defended by an external control',
+                        'SC': 'Goes through an internal security control',
+                        'OT': 'Other', 'URL': 'URL is only accessible by
+                        trusted power users'}
+  -o ORG_ID, --org-id ORG_ID, --organization-id ORG_ID
+                        ID of the organization with the trace(s).
+  -m MESSAGE, --message MESSAGE, --explanation MESSAGE
+                        Optional comment to add to these vulnerabilities with
+                        the status change.
+```
+
 ## Development Setup
 Various tools enforce code standards, and are run as a pre-commit hook. This must be setup before committing changes with the following commands:
 ```bash

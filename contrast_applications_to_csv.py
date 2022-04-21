@@ -8,7 +8,7 @@ from contrast_api import ContrastTeamServer, contrast_instance_from_json, load_c
 
 # -----------------------------------#
 # Some parameters for this script    #
-OUTPUT_FILENAME = "contrast_apps.csv"
+OUTPUT_FILENAME = "./output/contrast_apps.csv"
 INCLUDE_MERGED = True
 INCLUDE_ARCHIVED = False
 # Names of custom application metadata fields to include in the output

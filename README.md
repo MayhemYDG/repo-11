@@ -32,6 +32,34 @@ Each script **requires** the following environment variables at minimum:
 - `CONTRAST__API__API_KEY` - an API key with permission to access that instance
 - `CONTRAST__API__AUTH_HEADER` - authorization header for a user with permission to access that instance (base 64 of `username:service_key`)
 
+### Create application access group [`contrast_create_group.py`](contrast_create_group.py)
+
+Creates an application access group with the specified name, allowing applications to be onboarded to that group with the specified role. Does not manage users, as most will map users to groups automatically via SSO.
+
+Requires additional options:
+- Group name
+- Role
+- Organization ID
+
+Full usage information:
+
+```
+usage: contrast_create_group.py [-h] -n GROUP_NAME -r
+                                {NO_ACCESS,VIEW,EDIT,RULES_ADMIN,ADMIN} -o
+                                ORG_ID
+
+Create an application access group on Contrast.
+
+options:
+  -h, --help            show this help message and exit
+  -n GROUP_NAME, --group-name GROUP_NAME, --group-name GROUP_NAME
+                        Name of the group you want to create.
+  -r {NO_ACCESS,VIEW,EDIT,RULES_ADMIN,ADMIN}, --role {NO_ACCESS,VIEW,EDIT,RULES_ADMIN,ADMIN}
+                        Role to give users allocated to this group's applications.
+  -o ORG_ID, --org-id ORG_ID, --organization-id ORG_ID
+                        ID of the organization to create this group in.
+```
+
 ### Create application [`contrast_create_application.py`](contrast_create_application.py)
 
 Creates an application with the specified name and language.

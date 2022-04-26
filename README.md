@@ -32,6 +32,10 @@ Each script **requires** the following environment variables at minimum:
 - `CONTRAST__API__API_KEY` - an API key with permission to access that instance
 - `CONTRAST__API__AUTH_HEADER` - authorization header for a user with permission to access that instance (base 64 of `username:service_key`)
 
+There are also the following optional environment variables:
+- `INSECURE_SKIP_CERT_VALIDATION` - set to `true` or `1` to skip TLS certificate validation on network requests
+- `HTTP_PROXY` - set to your proxy URL if a proxy is needed to reach Contrast
+
 ### Create application access group [`contrast_create_group.py`](contrast_create_group.py)
 
 Creates an application access group with the specified name, allowing applications to be onboarded to that group with the specified role. Does not manage users, as most will map users to groups automatically via SSO.

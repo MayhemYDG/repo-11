@@ -57,6 +57,11 @@ class ContrastTeamServer:
 
         self._is_superadmin = False
         self._connection_checked = False
+        self._skip_certificate_validation = False
+        if "INSECURE_SKIP_CERT_VALIDATION" in os.environ:
+            self._skip_certificate_validation = os.environ[
+                "INSECURE_SKIP_CERT_VALIDATION"
+            ].lower() in ["1", "true"]
 
         self._title_cwe_cache = {}
 
@@ -99,6 +104,7 @@ class ContrastTeamServer:
             self._teamserver_url + path,
             headers=self.request_headers(api_key),
             json=body,
+            verify=not self._skip_certificate_validation,
         )
         if should_retry:
             retry_count = 0

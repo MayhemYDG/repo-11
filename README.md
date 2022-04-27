@@ -28,7 +28,7 @@ python3 <script.py> <args> # Run scripts
 ## Usage of available scripts
 
 Each script **requires** the following environment variables at minimum:
-- `CONTRAST__API__API_URL` - the URL to your Contast instance, e.g.: `https://contrast_instance.your_domain.tld/Contrast`
+- `CONTRAST__API__URL` - the URL to your Contast instance, e.g.: `https://contrast_instance.your_domain.tld/Contrast`
 - `CONTRAST__API__API_KEY` - an API key with permission to access that instance
 - `CONTRAST__API__AUTH_HEADER` - authorization header for a user with permission to access that instance (base 64 of `username:service_key`)
 

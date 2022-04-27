@@ -87,14 +87,12 @@ with open(OUTPUT_FILENAME, "w", newline="") as csvfile:
     orgs = contrast.list_orgs()
     for org in orgs:
         org_id = org["organization_uuid"]
-        org_key = contrast.org_api_key(org_id)["api_key"]
+        org_key = contrast.org_api_key(org_id)
         org_name = org["name"]
 
         if not org_key:
-            logger.warn(
-                "Unable to get API Key for "
-                + org_name
-                + " -- account may not have permissions to this org. Skipping."
+            logger.warning(
+                f"Unable to get API Key for {org_name} -- account may not have permissions to this org. Skipping."
             )
             continue
 

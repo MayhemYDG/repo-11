@@ -171,12 +171,19 @@ class ContrastTeamServer:
         else:
             return self.api_request("profile/organizations")["organizations"]
 
-    def org_api_key(self, org_id):
-        """Superadmin API call to retrieve the API call for a specific organization."""
+    def org_api_key(self, org_id) -> str | None:
+        """Superadmin API call to retrieve the API key for a specific organization."""
         if self._is_superadmin:
-            return self.api_request("superadmin/organizations/" + org_id + "/apiKey")
+            call = f"superadmin/organizations/{org_id}/apiKey"
         else:
-            return {"api_key": self._api_key}
+            call = f"{org_id}/users/keys/apikey"
+
+        response = self.api_request(call)
+
+        if "api_key" in response:
+            return response["api_key"]
+        else:
+            return None
 
     def list_org_apps(
         self, org_id, api_key, include_merged=True, include_archived=False

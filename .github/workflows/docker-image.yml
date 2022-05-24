@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: contrast-security-oss/example-teamserver-api-scripts
+
 jobs:
   build:
     runs-on: ubuntu-latest

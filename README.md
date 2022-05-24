@@ -12,7 +12,7 @@ You can run these scripts locally with a Python install, or, in a container with
 ### Container use
 ```bash
 docker build . --tag contrast-scripts # Build the container
-docker run -it contrast-scripts --env-file=contrast.env -v $PWD/output:/usr/src/app/output python <script.py> <...args...> # Run the container
+docker run -it --env-file=contrast.env -v $PWD/output:/usr/src/app/output contrast-scripts python <script.py> <...args...> # Run the container
 ```
 
 ### Local use

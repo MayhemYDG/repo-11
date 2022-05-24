@@ -156,7 +156,7 @@ options:
                         the status change.
 ```
 
-## Grant or revoke SuperAdmin role [`contrast_manage_superadmins.py`](contrast_manage_superadmins.py)
+### Grant or revoke SuperAdmin role [`contrast_manage_superadmins.py`](contrast_manage_superadmins.py)
 
 Grant or revoke the SuperAdmin role from an existing user. SuperAdmin credentials must be used for this to succeed.
 

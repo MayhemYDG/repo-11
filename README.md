@@ -156,6 +156,25 @@ options:
                         the status change.
 ```
 
+## Grant or revoke SuperAdmin role [`contrast_manage_superadmins.py`](contrast_manage_superadmins.py)
+
+Grant or revoke the SuperAdmin role from an existing user. SuperAdmin credentials must be used for this to succeed.
+
+Full usage information:
+
+```
+usage: contrast_manage_superadmins.py [-h] action account
+
+Grant or revoke superadmin from a user in Contrast.
+
+positional arguments:
+  action      Action to take - grant|revoke superadmin.
+  account     ID of Account to act on - email address/username.
+
+options:
+  -h, --help  show this help message and exit
+```
+
 ## Development Setup
 Various tools enforce code standards, and are run as a pre-commit hook. This must be setup before committing changes with the following commands:
 ```bash

@@ -5,13 +5,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'jacoco/gem_version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'danger-jacoco'
+  spec.name          = 'danger-jacoco-instacart'
   spec.version       = Jacoco::VERSION
-  spec.authors       = ['Anton Malinskiy']
-  spec.email         = ['anton@malinskiy.com']
-  spec.description   = 'A short description of danger-jacoco.'
+  spec.authors       = ['Anton Malinskiy', 'Alexander Bezverhni']
+  spec.email         = ['anton@malinskiy.com', 'bezverhni@gmail.com']
+  spec.description   = 'A short description of danger-jacoco. This is a forked version of https://github.com/Malinskiy/danger-jacoco that suits Instacart needs.'
   spec.summary       = 'A longer description of danger-jacoco.'
-  spec.homepage      = 'https://github.com/Malinskiy/danger-jacoco'
+  spec.homepage      = 'https://github.com/alexanderbezverhni/danger-jacoco'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)

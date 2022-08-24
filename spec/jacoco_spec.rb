@@ -211,6 +211,90 @@ module Danger
 
         expect { @my_plugin.report path_a, fail_no_coverage_data_found: false }.to_not raise_error(RuntimeError)
       end
+
+      it 'prints default success subtitle' do
+        path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
+
+        @my_plugin.minimum_project_coverage_percentage = 30
+        @my_plugin.minimum_class_coverage_percentage = 40
+
+        @my_plugin.report path_a
+
+        expected = "### JaCoCo Code Coverage 32.9% :white_check_mark:\n"
+        expected += "#### All classes meet coverage requirement. Well done! :white_check_mark:\n"
+        expected += "| Class | Covered | Required | Status |\n"
+        expected += "|:---|:---:|:---:|:---:|\n"
+        expected += "| `com/example/CachedRepository` | 50% | 40% | :white_check_mark: |\n"
+        expect(@dangerfile.status_report[:markdowns][0].message).to include(expected)
+      end
+
+      it 'prints default failure subtitle' do
+        path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
+
+        @my_plugin.minimum_project_coverage_percentage = 30
+        @my_plugin.minimum_class_coverage_percentage = 60
+
+        @my_plugin.report path_a
+
+        expected = "### JaCoCo Code Coverage 32.9% :white_check_mark:\n"
+        expected += "#### There are classes that do not meet coverage requirement :warning:\n"
+        expected += "| Class | Covered | Required | Status |\n"
+        expected += "|:---|:---:|:---:|:---:|\n"
+        expected += "| `com/example/CachedRepository` | 50% | 60% | :warning: |\n"
+        expect(@dangerfile.status_report[:markdowns][0].message).to include(expected)
+      end
+
+      it 'prints custom success subtitle' do
+        path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
+
+        @my_plugin.minimum_project_coverage_percentage = 30
+        @my_plugin.minimum_class_coverage_percentage = 40
+        @my_plugin.subtitle_success = 'You rock! 🔥'
+
+        @my_plugin.report path_a
+
+        expected = "### JaCoCo Code Coverage 32.9% :white_check_mark:\n"
+        expected += "#### You rock! 🔥\n"
+        expected += "| Class | Covered | Required | Status |\n"
+        expected += "|:---|:---:|:---:|:---:|\n"
+        expected += "| `com/example/CachedRepository` | 50% | 40% | :white_check_mark: |\n"
+        expect(@dangerfile.status_report[:markdowns][0].message).to include(expected)
+      end
+
+      it 'prints custom failure subtitle' do
+        path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
+
+        @my_plugin.minimum_project_coverage_percentage = 30
+        @my_plugin.minimum_class_coverage_percentage = 60
+        @my_plugin.subtitle_failure = 'Too bad :('
+
+        @my_plugin.report path_a
+
+        expected = "### JaCoCo Code Coverage 32.9% :white_check_mark:\n"
+        expected += "#### Too bad :(\n"
+        expected += "| Class | Covered | Required | Status |\n"
+        expected += "|:---|:---:|:---:|:---:|\n"
+        expected += "| `com/example/CachedRepository` | 50% | 60% | :warning: |\n"
+        expect(@dangerfile.status_report[:markdowns][0].message).to include(expected)
+      end
+
+      it 'prints default class column title' do
+        path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
+
+        @my_plugin.report path_a
+
+        expect(@dangerfile.status_report[:markdowns][0].message).to include('| Class | Covered | Required | Status |')
+      end
+
+      it 'prints custom class column title' do
+        path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
+
+        @my_plugin.class_column_title = 'New files'
+
+        @my_plugin.report path_a
+
+        expect(@dangerfile.status_report[:markdowns][0].message).to include('| New files | Covered | Required | Status |')
+      end
     end
   end
 end

@@ -22,14 +22,22 @@ module Danger
   class DangerJacoco < Plugin # rubocop:disable Metrics/ClassLength
     attr_accessor :minimum_project_coverage_percentage, :minimum_class_coverage_percentage, :only_check_new_files,
                   :files_extension, :minimum_package_coverage_map, :minimum_class_coverage_map,
-                  :fail_no_coverage_data_found, :title
+                  :fail_no_coverage_data_found, :title, :class_column_title, :subtitle_success, :subtitle_failure
 
     # Initialize the plugin with configured parameters or defaults
     def setup
       setup_minimum_coverages
+      setup_texts
       @only_check_new_files = false unless only_check_new_files
       @files_extension = ['.kt', '.java'] unless files_extension
+    end
+
+    # Initialize the plugin with configured optional texts
+    def setup_texts
       @title = 'JaCoCo' unless title
+      @class_column_title = 'Class' unless class_column_title
+      @subtitle_success = 'All classes meet coverage requirement. Well done! :white_check_mark:' unless subtitle_success
+      @subtitle_failure = 'There are classes that do not meet coverage requirement :warning:' unless subtitle_failure
     end
 
     # Initialize the plugin with configured coverage minimum parameters or defaults
@@ -66,6 +74,7 @@ module Danger
     # Java => blah/blah/java/slashed_package/Source.java
     # Kotlin => blah/blah/kotlin/slashed_package/Source.kt
     #
+    # rubocop:disable Style/AbcSize
     def report(path, report_url = '', delimiter = %r{/java/|/kotlin/}, fail_no_coverage_data_found: true)
       @fail_no_coverage_data_found = fail_no_coverage_data_found
 
@@ -77,14 +86,18 @@ module Danger
 
       total_covered = total_coverage(path)
 
-      report_markdown = "### #{title} Code Coverage #{total_covered[:covered]}% #{total_covered[:status]}\n"
-      report_markdown += "| Class | Covered | Required | Status |\n"
+      header = "### #{title} Code Coverage #{total_covered[:covered]}% #{total_covered[:status]}\n"
+      report_markdown = header
+      report_markdown += "| #{class_column_title} | Covered | Required | Status |\n"
       report_markdown += "|:---|:---:|:---:|:---:|\n"
       class_coverage_above_minimum = markdown_class(parser, report_markdown, report_url)
+      subtitle = class_coverage_above_minimum ? subtitle_success : subtitle_failure
+      report_markdown.insert(header.length, "#### #{subtitle}\n")
       markdown(report_markdown)
 
       report_fails(class_coverage_above_minimum, total_covered)
     end
+    # rubocop:enable Style/AbcSize
 
     # Select either only added files or modified and added files in this PR,
     # depending on "only_check_new_files" attribute

@@ -23,6 +23,7 @@ jacoco.minimum_class_coverage_map = { # optional (default is empty)
   'com/package/more/specific/ClassName' => 15
 }
 jacoco.minimum_class_coverage_percentage = 75 # default 0
+jacoco.only_check_new_files = true # default false
 jacoco.files_extension = [".java"] # default [".kt", ".java"]
 jacoco.report("path/to/jacoco.xml", "http://jacoco-html-reports/")
 ```

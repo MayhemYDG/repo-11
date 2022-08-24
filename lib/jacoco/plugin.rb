@@ -20,17 +20,24 @@ module Danger
   # @tags jacoco, coverage, java, android, kotlin
   #
   class DangerJacoco < Plugin # rubocop:disable Metrics/ClassLength
-    attr_accessor :minimum_project_coverage_percentage, :minimum_class_coverage_percentage, :files_extension,
-                  :minimum_package_coverage_map, :minimum_class_coverage_map, :fail_no_coverage_data_found, :title
+    attr_accessor :minimum_project_coverage_percentage, :minimum_class_coverage_percentage, :only_check_new_files,
+                  :files_extension, :minimum_package_coverage_map, :minimum_class_coverage_map,
+                  :fail_no_coverage_data_found, :title
 
     # Initialize the plugin with configured parameters or defaults
     def setup
+      setup_minimum_coverages
+      @only_check_new_files = false unless only_check_new_files
+      @files_extension = ['.kt', '.java'] unless files_extension
+      @title = 'JaCoCo' unless title
+    end
+
+    # Initialize the plugin with configured coverage minimum parameters or defaults
+    def setup_minimum_coverages
       @minimum_project_coverage_percentage = 0 unless minimum_project_coverage_percentage
       @minimum_class_coverage_percentage = 0 unless minimum_class_coverage_percentage
       @minimum_package_coverage_map = {} unless minimum_package_coverage_map
       @minimum_class_coverage_map = {} unless minimum_class_coverage_map
-      @files_extension = ['.kt', '.java'] unless files_extension
-      @title = 'JaCoCo' unless title
     end
 
     # Parses the xml output of jacoco to Ruby model classes
@@ -71,7 +78,7 @@ module Danger
       total_covered = total_coverage(path)
 
       report_markdown = "### #{title} Code Coverage #{total_covered[:covered]}% #{total_covered[:status]}\n"
-      report_markdown += "| Class | Covered | Meta | Status |\n"
+      report_markdown += "| Class | Covered | Required | Status |\n"
       report_markdown += "|:---|:---:|:---:|:---:|\n"
       class_coverage_above_minimum = markdown_class(parser, report_markdown, report_url)
       markdown(report_markdown)
@@ -79,10 +86,11 @@ module Danger
       report_fails(class_coverage_above_minimum, total_covered)
     end
 
-    # Select modified and added files in this PR
+    # Select either only added files or modified and added files in this PR,
+    # depending on "only_check_new_files" attribute
     def classes(delimiter)
       git = @dangerfile.git
-      affected_files = git.modified_files + git.added_files
+      affected_files = only_check_new_files ? git.added_files : git.added_files + git.modified_files
       affected_files.select { |file| files_extension.reduce(false) { |state, el| state || file.end_with?(el) } }
                     .map { |file| file.split('.').first.split(delimiter)[1] }
     end
@@ -138,7 +146,8 @@ module Danger
     def coverage_status(coverage, minimum_percentage)
       if coverage < (minimum_percentage / 2) then ':skull:'
       elsif coverage < minimum_percentage then ':warning:'
-      else ':white_check_mark:'
+      else
+        ':white_check_mark:'
       end
     end
 

@@ -1,0 +1,15 @@
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/danger_jacoco.rb 38229d934b3315bb2a5a4eec18eb65f3c54d304f
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/gem_version.rb fc0b799df58ae240e5bc7ee0aeab413449d1b49f
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/plugin.rb c8f48a26b6476a6618b3a8b8f85f5657f16d518f
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/sax_parser.rb 370e2799f8dbdf7d642c820214e6ea84c30c9cb0
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/model/counter.rb 368f4a9811617b7a174ddf837a8fac49a4bc32a6
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/model/report.rb 7cf45ee71ff347a130320f6190ddb25525c7095d
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/model/class.rb 89c78fdda05e07a709ddfb1d5ae9fb2472eaa504
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/model/method.rb 37076c751eb37683c0071c154319b85a987a2708
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/model/group.rb 6a8ccb32c793842af49c5c2d0d015bf01b0ec537
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/model/sourcefile.rb 19ffc9500370f50807af91a6f177c42d5879aabd
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/model/session_info.rb 5c908a9f96bd054d202edfeb30f29dcb4b42a1c9
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/model/line.rb ff5d6fc5bf0bf808c46d4bafce0f3fc53c8fdd73
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/model/package.rb b865b8eca41323dfc832babc08179fb94b5dfb0f
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/dom_parser.rb d08e0ca8531dd04bc9261a57fc03852b23883965
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/danger_plugin.rb f5f82beb7e326604e1003f368e15da243263c0cf

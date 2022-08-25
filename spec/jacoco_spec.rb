@@ -295,6 +295,36 @@ module Danger
 
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| New files | Covered | Required | Status |')
       end
+
+      it 'instruction coverage takes over all the rest coverages for classes' do
+        path_a = "#{File.dirname(__FILE__)}/fixtures/output_d.xml"
+
+        @my_plugin.minimum_class_coverage_percentage = 50
+
+        @my_plugin.report path_a
+
+        expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 71% | 50% | :white_check_mark: |')
+      end
+
+      it 'branch coverage takes over line coverage for classes, when instruction coverage is not available' do
+        path_a = "#{File.dirname(__FILE__)}/fixtures/output_e.xml"
+
+        @my_plugin.minimum_class_coverage_percentage = 50
+
+        @my_plugin.report path_a
+
+        expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 42% | 50% | :warning: |')
+      end
+
+      it 'line coverage takes over for classes, when both instruction coverage and branch coverage are not available' do
+        path_a = "#{File.dirname(__FILE__)}/fixtures/output_f.xml"
+
+        @my_plugin.minimum_class_coverage_percentage = 50
+
+        @my_plugin.report path_a
+
+        expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 93% | 50% | :white_check_mark: |')
+      end
     end
   end
 end

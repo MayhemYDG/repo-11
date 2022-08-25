@@ -9,7 +9,6 @@
         <counter type="COMPLEXITY" missed="0" covered="1"/>
         <counter type="METHOD" missed="0" covered="1"/>
       </method>
-      <counter type="INSTRUCTION" missed="0" covered="46"/>
       <counter type="COMPLEXITY" missed="5" covered="7"/>
       <counter type="METHOD" missed="0" covered="7"/>
       <counter type="CLASS" missed="0" covered="1"/>
@@ -17,7 +16,6 @@
     <sourcefile name="CachedRepository.java">
       <line nr="16" mi="0" ci="2" mb="0" cb="0"/>
       <line nr="17" mi="0" ci="3" mb="0" cb="0"/>
-      <counter type="INSTRUCTION" missed="2" covered="98"/>
       <counter type="COMPLEXITY" missed="2" covered="11"/>
       <counter type="METHOD" missed="2" covered="11"/>
       <counter type="CLASS" missed="2" covered="4"/>

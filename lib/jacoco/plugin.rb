@@ -184,10 +184,8 @@ module Danger
     private
 
     def coverage_counter(jacoco_class)
-      counters = jacoco_class.counters
-      branch_counter = counters.detect { |e| e.type.eql? 'BRANCH' }
-      line_counter = counters.detect { |e| e.type.eql? 'LINE' }
-      counter = branch_counter.nil? ? line_counter : branch_counter
+      all_class_counters = jacoco_class.counters
+      counter = class_counter(all_class_counters)
 
       if counter.nil?
         no_coverage_data_found_message = "No coverage data found for #{jacoco_class.name}"
@@ -198,6 +196,19 @@ module Danger
       end
 
       counter
+    end
+
+    def class_counter(all_class_counters)
+      instruction_counter = all_class_counters.detect { |e| e.type.eql? 'INSTRUCTION' }
+      branch_counter = all_class_counters.detect { |e| e.type.eql? 'BRANCH' }
+      line_counter = all_class_counters.detect { |e| e.type.eql? 'LINE' }
+      if !instruction_counter.nil?
+        instruction_counter
+      elsif !branch_counter.nil?
+        branch_counter
+      else
+        line_counter
+      end
     end
 
     # rubocop:disable Style/SignalException

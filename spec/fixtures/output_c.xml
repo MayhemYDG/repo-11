@@ -10,7 +10,7 @@
         <counter type="COMPLEXITY" missed="0" covered="1"/>
         <counter type="METHOD" missed="0" covered="1"/>
       </method>
-      <counter type="INSTRUCTION" missed="0" covered="46"/>
+      <counter type="INSTRUCTION" missed="46" covered="46"/>
       <counter type="LINE" missed="0" covered="14"/>
       <counter type="COMPLEXITY" missed="5" covered="7"/>
       <counter type="METHOD" missed="0" covered="7"/>
@@ -41,7 +41,7 @@
         <counter type="COMPLEXITY" missed="0" covered="1"/>
         <counter type="METHOD" missed="0" covered="1"/>
       </method>
-      <counter type="INSTRUCTION" missed="0" covered="36"/>
+      <counter type="INSTRUCTION" missed="18" covered="36"/>
       <counter type="LINE" missed="0" covered="12"/>
       <counter type="COMPLEXITY" missed="5" covered="8"/>
       <counter type="METHOD" missed="0" covered="9"/>

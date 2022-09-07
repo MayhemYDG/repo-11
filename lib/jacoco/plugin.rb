@@ -20,9 +20,10 @@ module Danger
   # @tags jacoco, coverage, java, android, kotlin
   #
   class DangerJacoco < Plugin # rubocop:disable Metrics/ClassLength
-    attr_accessor :minimum_project_coverage_percentage, :minimum_class_coverage_percentage, :only_check_new_files,
-                  :files_extension, :minimum_package_coverage_map, :minimum_class_coverage_map,
-                  :fail_no_coverage_data_found, :title, :class_column_title, :subtitle_success, :subtitle_failure
+    attr_accessor :minimum_project_coverage_percentage, :minimum_class_coverage_percentage,
+                  :minimum_composable_class_coverage_percentage, :only_check_new_files, :files_extension,
+                  :minimum_package_coverage_map, :minimum_class_coverage_map, :fail_no_coverage_data_found,
+                  :title, :class_column_title, :subtitle_success, :subtitle_failure
 
     # Initialize the plugin with configured parameters or defaults
     def setup
@@ -44,6 +45,7 @@ module Danger
     def setup_minimum_coverages
       @minimum_project_coverage_percentage = 0 unless minimum_project_coverage_percentage
       @minimum_class_coverage_percentage = 0 unless minimum_class_coverage_percentage
+      @minimum_composable_class_coverage_percentage = 0 unless minimum_composable_class_coverage_percentage
       @minimum_package_coverage_map = {} unless minimum_package_coverage_map
       @minimum_class_coverage_map = {} unless minimum_class_coverage_map
     end
@@ -79,9 +81,10 @@ module Danger
       @fail_no_coverage_data_found = fail_no_coverage_data_found
 
       setup
-      classes = classes(delimiter)
+      class_to_file_path_hash = classes(delimiter)
+      classnames = class_to_file_path_hash.keys
 
-      parser = Jacoco::SAXParser.new(classes)
+      parser = Jacoco::SAXParser.new(classnames)
       Nokogiri::XML::SAX::Parser.new(parser).parse(File.open(path))
 
       total_covered = total_coverage(path)
@@ -90,7 +93,7 @@ module Danger
       report_markdown = header
       report_markdown += "| #{class_column_title} | Covered | Required | Status |\n"
       report_markdown += "|:---|:---:|:---:|:---:|\n"
-      class_coverage_above_minimum = markdown_class(parser, report_markdown, report_url)
+      class_coverage_above_minimum = markdown_class(parser, report_markdown, report_url, class_to_file_path_hash)
       subtitle = class_coverage_above_minimum ? subtitle_success : subtitle_failure
       report_markdown.insert(header.length, "#### #{subtitle}\n")
       markdown(report_markdown)
@@ -104,12 +107,17 @@ module Danger
     def classes(delimiter)
       git = @dangerfile.git
       affected_files = only_check_new_files ? git.added_files : git.added_files + git.modified_files
+      class_to_file_path_hash = {}
       affected_files.select { |file| files_extension.reduce(false) { |state, el| state || file.end_with?(el) } }
-                    .map { |file| file.split('.').first.split(delimiter)[1] }
+                    .each do |file| # "src/java/com/example/CachedRepository.java"
+                      classname = file.split('.').first.split(delimiter)[1] # "com/example/CachedRepository"
+                      class_to_file_path_hash[classname] = file
+                    end
+      class_to_file_path_hash
     end
 
     # It returns a specific class code coverage and an emoji status as well
-    def report_class(jacoco_class)
+    def report_class(jacoco_class, file_path)
       report_result = {
         covered: 'No coverage data found : -',
         status: ':black_joker:',
@@ -119,7 +127,7 @@ module Danger
       counter = coverage_counter(jacoco_class)
       unless counter.nil?
         coverage = (counter.covered.fdiv(counter.covered + counter.missed) * 100).floor
-        required_coverage = required_class_coverage(jacoco_class)
+        required_coverage = required_class_coverage(jacoco_class, file_path)
         status = coverage_status(coverage, required_coverage)
 
         report_result = {
@@ -133,13 +141,19 @@ module Danger
     end
 
     # Determines the required coverage for the class
-    def required_class_coverage(jacoco_class)
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity
+    def required_class_coverage(jacoco_class, file_path)
       key = minimum_class_coverage_map.keys.detect { |k| jacoco_class.name.match(k) } || jacoco_class.name
       required_coverage = minimum_class_coverage_map[key]
+      includes_composables = File.read(file_path).include? '@Composable' if File.exist?(file_path)
+      required_coverage = minimum_composable_class_coverage_percentage if required_coverage.nil? && includes_composables
       required_coverage = package_coverage(jacoco_class.name) if required_coverage.nil?
       required_coverage = minimum_class_coverage_percentage if required_coverage.nil?
       required_coverage
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     # it returns the most suitable coverage by package name to class or nil
     def package_coverage(class_name)
@@ -225,10 +239,11 @@ module Danger
     end
     # rubocop:enable Style/SignalException
 
-    def markdown_class(parser, report_markdown, report_url)
+    def markdown_class(parser, report_markdown, report_url, class_to_file_path_hash)
       class_coverage_above_minimum = true
       parser.classes.each do |jacoco_class| # Check metrics for each classes
-        rp = report_class(jacoco_class)
+        file_path = class_to_file_path_hash[jacoco_class.name]
+        rp = report_class(jacoco_class, file_path)
         rl = report_link(jacoco_class.name, report_url)
         ln = "| #{rl} | #{rp[:covered]}% | #{rp[:required_coverage_percentage]}% | #{rp[:status]} |\n"
         report_markdown << ln

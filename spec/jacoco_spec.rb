@@ -325,6 +325,42 @@ module Danger
 
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 93% | 50% | :white_check_mark: |')
       end
+
+      describe 'with CachedRepository containing @Composable annotation' do
+        before do
+          allow(File).to receive(:exist?).with('src/java/com/example/CachedRepository.java').and_return(true)
+          allow(File).to receive(:read).with('src/java/com/example/CachedRepository.java').and_return('package com.kevin.mia.mikaela class Vika { @Composable fun someUiWidget() {} }')
+        end
+
+        it 'applies minimum_composable_class_coverage_percentage' do
+          path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
+
+          @my_plugin.minimum_class_coverage_percentage = 55
+          @my_plugin.minimum_composable_class_coverage_percentage = 45
+
+          @my_plugin.report path_a
+
+          expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 50% | 45% | :white_check_mark: |')
+        end
+      end
+
+      describe 'with CachedRepository _not_ containing @Composable annotation' do
+        before do
+          allow(File).to receive(:exist?).with('src/java/com/example/CachedRepository.java').and_return(true)
+          allow(File).to receive(:read).with('src/java/com/example/CachedRepository.java').and_return('package com.kevin.mia.mikaela class Vika { fun main() {} }')
+        end
+
+        it 'does not apply minimum_composable_class_coverage_percentage' do
+          path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
+
+          @my_plugin.minimum_class_coverage_percentage = 55
+          @my_plugin.minimum_composable_class_coverage_percentage = 45
+
+          @my_plugin.report path_a
+
+          expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 50% | 55% | :warning: |')
+        end
+      end
     end
   end
 end

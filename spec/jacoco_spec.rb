@@ -33,7 +33,7 @@ module Danger
         @my_plugin.minimum_project_coverage_percentage = 50
         @my_plugin.minimum_class_coverage_map = { 'com/example/CachedRepository' => 100 }
 
-        expect { @my_plugin.report(path_a) }.to raise_error(CoverageRequirementsNotMetError, /Total coverage of 32.9%. Improve this to at least 50%. Class coverage is below minimum. Improve to at least 0%/)
+        @my_plugin.report path_a
 
         expect(@dangerfile.status_report[:errors]).to eq(['Total coverage of 32.9%. Improve this to at least 50%',
                                                           'Class coverage is below minimum. Improve to at least 0%'])
@@ -49,7 +49,9 @@ module Danger
         @my_plugin.minimum_project_coverage_percentage = 50
         @my_plugin.minimum_class_coverage_map = { '.*Repository' => 60 }
 
-        expect { @my_plugin.report(path_a) }.to raise_error(CoverageRequirementsNotMetError, /Total coverage of 32.9%. Improve this to at least 50%. Class coverage is below minimum. Improve to at least 0%/)
+        @my_plugin.report path_a
+
+        expect{ @my_plugin.report }.to raise_error(NoMethodError, /private/)
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 50% | 60% | :warning: |')
       end
 
@@ -59,7 +61,8 @@ module Danger
         @my_plugin.minimum_project_coverage_percentage = 50
         @my_plugin.minimum_package_coverage_map = { 'com/example/' => 70 }
 
-        expect { @my_plugin.report(path_a) }.to raise_error(CoverageRequirementsNotMetError, /Total coverage of 32.9%. Improve this to at least 50%/)
+        @my_plugin.report path_a
+
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 50% | 70% | :warning: |')
       end
 
@@ -72,7 +75,8 @@ module Danger
           'com/' => 90
         }
 
-        expect { @my_plugin.report(path_a) }.to raise_error(CoverageRequirementsNotMetError, /Total coverage of 32.9%. Improve this to at least 50%/)
+        @my_plugin.report path_a
+
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 50% | 70% | :warning: |')
       end
 
@@ -85,7 +89,8 @@ module Danger
           'com/' => 30
         }
 
-        expect { @my_plugin.report(path_a) }.to raise_error(CoverageRequirementsNotMetError, /Total coverage of 32.9%. Improve this to at least 50%/)
+        @my_plugin.report path_a
+
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 50% | 77% | :warning: |')
       end
 
@@ -99,7 +104,8 @@ module Danger
         }
         @my_plugin.minimum_class_coverage_map = { 'com/example/CachedRepository' => 100 }
 
-        expect { @my_plugin.report(path_a) }.to raise_error(CoverageRequirementsNotMetError, /Total coverage of 32.9%. Improve this to at least 50%/)
+        @my_plugin.report path_a
+
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 50% | 100% | :warning: |')
       end
 
@@ -113,7 +119,8 @@ module Danger
         }
         @my_plugin.minimum_class_coverage_map = { 'com/example/CachedRepository' => 80 }
 
-        expect { @my_plugin.report(path_a) }.to raise_error(CoverageRequirementsNotMetError, /Total coverage of 32.9%. Improve this to at least 50%/)
+        @my_plugin.report path_a
+
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 50% | 80% | :warning: |')
       end
 
@@ -150,7 +157,7 @@ module Danger
         @my_plugin.minimum_class_coverage_percentage = 70
         @my_plugin.only_check_new_files = true
 
-        expect { @my_plugin.report(path_a) }.to raise_error(CoverageRequirementsNotMetError, /Class coverage is below minimum. Improve to at least 70%/)
+        @my_plugin.report path_a
 
         expect(@dangerfile.status_report[:markdowns][0].message).to include('### JaCoCo Code Coverage 55.59% :white_check_mark:')
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| Class | Covered | Required | Status |')
@@ -165,7 +172,8 @@ module Danger
         @my_plugin.minimum_class_coverage_percentage = 80
         @my_plugin.minimum_project_coverage_percentage = 50
 
-        expect { @my_plugin.report(path_a, 'http://test.com/') }.to raise_error(CoverageRequirementsNotMetError, /Total coverage of 32.9%. Improve this to at least 50%. Class coverage is below minimum. Improve to at least 80%/)
+        @my_plugin.report(path_a, 'http://test.com/')
+
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| [`com/example/CachedRepository`](http://test.com/com.example/CachedRepository.html) | 50% | 80% | :warning: |')
       end
 
@@ -227,7 +235,7 @@ module Danger
         @my_plugin.minimum_project_coverage_percentage = 30
         @my_plugin.minimum_class_coverage_percentage = 60
 
-        expect { @my_plugin.report(path_a) }.to raise_error(CoverageRequirementsNotMetError, /Class coverage is below minimum. Improve to at least 60%/)
+        @my_plugin.report path_a
 
         expected = "### JaCoCo Code Coverage 32.9% :white_check_mark:\n"
         expected += "#### There are classes that do not meet coverage requirement :warning:\n"
@@ -261,7 +269,7 @@ module Danger
         @my_plugin.minimum_class_coverage_percentage = 60
         @my_plugin.subtitle_failure = 'Too bad :('
 
-        expect { @my_plugin.report(path_a) }.to raise_error(CoverageRequirementsNotMetError, /Class coverage is below minimum. Improve to at least 60%/)
+        @my_plugin.report path_a
 
         expected = "### JaCoCo Code Coverage 32.9% :white_check_mark:\n"
         expected += "#### Too bad :(\n"
@@ -304,7 +312,7 @@ module Danger
 
         @my_plugin.minimum_class_coverage_percentage = 50
 
-        expect { @my_plugin.report(path_a) }.to raise_error(CoverageRequirementsNotMetError, /Class coverage is below minimum. Improve to at least 50%/)
+        @my_plugin.report path_a
 
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 42% | 50% | :warning: |')
       end
@@ -349,7 +357,7 @@ module Danger
           @my_plugin.minimum_class_coverage_percentage = 55
           @my_plugin.minimum_composable_class_coverage_percentage = 45
 
-          expect { @my_plugin.report(path_a) }.to raise_error(CoverageRequirementsNotMetError, /Class coverage is below minimum. Improve to at least 55%/)
+          @my_plugin.report path_a
 
           expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 50% | 55% | :warning: |')
         end

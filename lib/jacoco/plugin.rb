@@ -227,28 +227,22 @@ module Danger
 
     # rubocop:disable Style/SignalException
     def report_fails(class_coverage_above_minimum, total_covered)
-      total_failure_message = ''
       if total_covered[:covered] < minimum_project_coverage_percentage
         # fail danger if total coverage is smaller than minimum_project_coverage_percentage
         covered = total_covered[:covered]
-        total_failure_message = "Total coverage of #{covered}%." \
-                                " Improve this to at least #{minimum_project_coverage_percentage}%"
-        fail(total_failure_message)
-        # rubocop:disable Lint/UnreachableCode (rubocop mistakenly thinks that raise is unreachable since priorly called "fail" raises by itself, but in fact "fail" is caught and handled)
-        raise CoverageRequirementsNotMetError, total_failure_message if class_coverage_above_minimum
-        # rubocop:enable Lint/UnreachableCode
+        fail_and_raise("Total coverage of #{covered}%. Improve this to at least #{minimum_project_coverage_percentage}%")
       end
 
       return if class_coverage_above_minimum
 
-      class_failure_message = 'Class coverage is below minimum.' \
-                              " Improve to at least #{minimum_class_coverage_percentage}%"
-      fail(class_failure_message)
-      # rubocop:disable Lint/UnreachableCode (rubocop mistakenly thinks that raise is unreachable since priorly called "fail" raises by itself, but in fact "fail" is caught and handled)
-      raise CoverageRequirementsNotMetError, "#{total_failure_message}. #{class_failure_message}"
-      # rubocop:enable Lint/UnreachableCode
+      fail_and_raise("Class coverage is below minimum. Improve to at least #{minimum_class_coverage_percentage}%")
     end
     # rubocop:enable Style/SignalException
+
+    def fail_and_raise(message)
+      fail(message)
+      raise message
+    end
 
     def markdown_class(parser, report_markdown, report_url, class_to_file_path_hash)
       class_coverage_above_minimum = true
@@ -273,12 +267,5 @@ module Danger
         "[`#{class_name}`](#{report_url + report_filepath})"
       end
     end
-  end
-end
-
-# Exception that is being thrown when any of the coverage requirements aren't met
-class CoverageRequirementsNotMetError < StandardError
-  def initialize(msg = 'Coverage requirements not met')
-    super
   end
 end

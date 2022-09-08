@@ -25,6 +25,7 @@ module Danger
 
         allow(@dangerfile.git).to receive(:modified_files).and_return(modified_files)
         allow(@dangerfile.git).to receive(:added_files).and_return(added_files)
+        allow(File).to receive(:open).and_call_original
       end
 
       it :report do
@@ -41,6 +42,36 @@ module Danger
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| Class | Covered | Required | Status |')
         expect(@dangerfile.status_report[:markdowns][0].message).to include('|:---|:---:|:---:|:---:|')
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 50% | 100% | :warning: |')
+      end
+
+      it 'creates supplied status file upon failure' do
+        path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
+
+        @my_plugin.minimum_project_coverage_percentage = 100
+        @my_plugin.minimum_class_coverage_percentage = 60
+        @my_plugin.file_to_create_on_failure = 'kmm.txt'
+
+        expect(File).to receive(:open).with('kmm.txt', 'w')
+        @my_plugin.report path_a
+      end
+
+      it 'creates default status file upon failure' do
+        path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
+
+        @my_plugin.minimum_class_coverage_percentage = 60
+
+        expect(File).to receive(:open).with('danger_jacoco_failure_status_file.txt', 'w')
+        @my_plugin.report path_a
+      end
+
+      it 'does _not_ create status file upon success' do
+        path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
+
+        @my_plugin.minimum_class_coverage_percentage = 40
+        @my_plugin.file_to_create_on_failure = 'kmm.txt'
+
+        expect(File).to_not receive(:open).with('kmm.txt', 'w')
+        @my_plugin.report path_a
       end
 
       it 'test regex class coverage' do

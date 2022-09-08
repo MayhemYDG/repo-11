@@ -23,7 +23,7 @@ module Danger
     attr_accessor :minimum_project_coverage_percentage, :minimum_class_coverage_percentage,
                   :minimum_composable_class_coverage_percentage, :only_check_new_files, :files_extension,
                   :minimum_package_coverage_map, :minimum_class_coverage_map, :fail_no_coverage_data_found,
-                  :title, :class_column_title, :subtitle_success, :subtitle_failure
+                  :title, :class_column_title, :subtitle_success, :subtitle_failure, :file_to_create_on_failure
 
     # Initialize the plugin with configured parameters or defaults
     def setup
@@ -31,6 +31,7 @@ module Danger
       setup_texts
       @only_check_new_files = false unless only_check_new_files
       @files_extension = ['.kt', '.java'] unless files_extension
+      @file_to_create_on_failure = 'danger_jacoco_failure_status_file.txt' unless file_to_create_on_failure
     end
 
     # Initialize the plugin with configured optional texts
@@ -231,13 +232,23 @@ module Danger
         # fail danger if total coverage is smaller than minimum_project_coverage_percentage
         covered = total_covered[:covered]
         fail("Total coverage of #{covered}%. Improve this to at least #{minimum_project_coverage_percentage}%")
+        # rubocop:disable Lint/UnreachableCode (rubocop mistakenly thinks that this line is unreachable since priorly called "fail" raises an error, but in fact "fail" is caught and handled)
+        create_status_file_on_failure if class_coverage_above_minimum
+        # rubocop:enable Lint/UnreachableCode
       end
 
       return if class_coverage_above_minimum
 
       fail("Class coverage is below minimum. Improve to at least #{minimum_class_coverage_percentage}%")
+      # rubocop:disable Lint/UnreachableCode (rubocop mistakenly thinks that this line is unreachable since priorly called "fail" raises an error, but in fact "fail" is caught and handled)
+      create_status_file_on_failure
+      # rubocop:enable Lint/UnreachableCode
     end
     # rubocop:enable Style/SignalException
+
+    def create_status_file_on_failure
+      File.open(file_to_create_on_failure, 'w') {}
+    end
 
     def markdown_class(parser, report_markdown, report_url, class_to_file_path_hash)
       class_coverage_above_minimum = true

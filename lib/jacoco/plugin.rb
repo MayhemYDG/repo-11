@@ -230,19 +230,14 @@ module Danger
       if total_covered[:covered] < minimum_project_coverage_percentage
         # fail danger if total coverage is smaller than minimum_project_coverage_percentage
         covered = total_covered[:covered]
-        fail_and_raise("Total coverage of #{covered}%. Improve this to at least #{minimum_project_coverage_percentage}%")
+        fail("Total coverage of #{covered}%. Improve this to at least #{minimum_project_coverage_percentage}%")
       end
 
       return if class_coverage_above_minimum
 
-      fail_and_raise("Class coverage is below minimum. Improve to at least #{minimum_class_coverage_percentage}%")
+      fail("Class coverage is below minimum. Improve to at least #{minimum_class_coverage_percentage}%")
     end
     # rubocop:enable Style/SignalException
-
-    def fail_and_raise(message)
-      fail(message)
-      raise message
-    end
 
     def markdown_class(parser, report_markdown, report_url, class_to_file_path_hash)
       class_coverage_above_minimum = true

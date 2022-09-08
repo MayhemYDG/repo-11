@@ -51,7 +51,6 @@ module Danger
 
         @my_plugin.report path_a
 
-        expect{ @my_plugin.report }.to raise_error(NoMethodError, /private/)
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 50% | 60% | :warning: |')
       end
 

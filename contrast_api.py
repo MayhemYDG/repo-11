@@ -120,6 +120,7 @@ class ContrastTeamServer:
                             self._teamserver_url + path,
                             headers=self.request_headers(api_key),
                             json=body,
+                            verify=not self._skip_certificate_validation,
                         )
                     else:
                         raise e

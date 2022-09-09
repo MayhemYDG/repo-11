@@ -21,7 +21,7 @@ module Danger
   #
   class DangerJacoco < Plugin # rubocop:disable Metrics/ClassLength
     attr_accessor :minimum_project_coverage_percentage, :minimum_class_coverage_percentage,
-                  :minimum_composable_class_coverage_percentage, :only_check_new_files, :files_extension,
+                  :minimum_composable_class_coverage_percentage, :files_to_check, :files_extension,
                   :minimum_package_coverage_map, :minimum_class_coverage_map, :fail_no_coverage_data_found,
                   :title, :class_column_title, :subtitle_success, :subtitle_failure, :file_to_create_on_failure
 
@@ -29,7 +29,7 @@ module Danger
     def setup
       setup_minimum_coverages
       setup_texts
-      @only_check_new_files = false unless only_check_new_files
+      @files_to_check = [] unless files_to_check
       @files_extension = ['.kt', '.java'] unless files_extension
       @file_to_create_on_failure = 'danger_jacoco_failure_status_file.txt' unless file_to_create_on_failure
     end
@@ -103,13 +103,9 @@ module Danger
     end
     # rubocop:enable Style/AbcSize
 
-    # Select either only added files or modified and added files in this PR,
-    # depending on "only_check_new_files" attribute
     def classes(delimiter)
-      git = @dangerfile.git
-      affected_files = only_check_new_files ? git.added_files : git.added_files + git.modified_files
       class_to_file_path_hash = {}
-      affected_files.select { |file| files_extension.reduce(false) { |state, el| state || file.end_with?(el) } }
+      files_to_check.select { |file| files_extension.reduce(false) { |state, el| state || file.end_with?(el) } }
                     .each do |file| # "src/java/com/example/CachedRepository.java"
                       classname = file.split('.').first.split(delimiter)[1] # "com/example/CachedRepository"
                       class_to_file_path_hash[classname] = file

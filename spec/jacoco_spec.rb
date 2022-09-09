@@ -20,17 +20,13 @@ module Danger
         @dangerfile = testing_dangerfile
         @my_plugin = @dangerfile.jacoco
 
-        modified_files = ['src/java/com/example/CachedRepository.java']
-        added_files = ['src/java/io/sample/UseCase.java']
-
-        allow(@dangerfile.git).to receive(:modified_files).and_return(modified_files)
-        allow(@dangerfile.git).to receive(:added_files).and_return(added_files)
         allow(File).to receive(:open).and_call_original
       end
 
       it :report do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_project_coverage_percentage = 50
         @my_plugin.minimum_class_coverage_map = { 'com/example/CachedRepository' => 100 }
 
@@ -47,6 +43,7 @@ module Danger
       it 'creates supplied status file upon failure' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_project_coverage_percentage = 100
         @my_plugin.minimum_class_coverage_percentage = 60
         @my_plugin.file_to_create_on_failure = 'kmm.txt'
@@ -58,6 +55,7 @@ module Danger
       it 'creates default status file upon failure' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_class_coverage_percentage = 60
 
         expect(File).to receive(:open).with('danger_jacoco_failure_status_file.txt', 'w')
@@ -67,6 +65,7 @@ module Danger
       it 'does _not_ create status file upon success' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_class_coverage_percentage = 40
         @my_plugin.file_to_create_on_failure = 'kmm.txt'
 
@@ -77,6 +76,7 @@ module Danger
       it 'test regex class coverage' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_project_coverage_percentage = 50
         @my_plugin.minimum_class_coverage_map = { '.*Repository' => 60 }
 
@@ -88,6 +88,7 @@ module Danger
       it 'test with package coverage' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_project_coverage_percentage = 50
         @my_plugin.minimum_package_coverage_map = { 'com/example/' => 70 }
 
@@ -99,6 +100,7 @@ module Danger
       it 'test with bigger overlapped package coverage' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_project_coverage_percentage = 50
         @my_plugin.minimum_package_coverage_map = {
           'com/example/' => 70,
@@ -113,6 +115,7 @@ module Danger
       it 'test with lower overlapped package coverage' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_project_coverage_percentage = 50
         @my_plugin.minimum_package_coverage_map = {
           'com/example/' => 77,
@@ -127,6 +130,7 @@ module Danger
       it 'test with overlapped package coverage and bigger class coverage' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_project_coverage_percentage = 50
         @my_plugin.minimum_package_coverage_map = {
           'com/example/' => 77,
@@ -142,6 +146,7 @@ module Danger
       it 'test with overlapped package coverage and lower class coverage' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_project_coverage_percentage = 50
         @my_plugin.minimum_package_coverage_map = {
           'com/example/' => 90,
@@ -154,51 +159,22 @@ module Danger
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 50% | 80% | :warning: |')
       end
 
-      it 'checks modified files when "only_check_new_files" attribute is false' do
-        path_a = "#{File.dirname(__FILE__)}/fixtures/output_c.xml"
-
-        @my_plugin.minimum_project_coverage_percentage = 50
-        @my_plugin.only_check_new_files = false
-
-        @my_plugin.report path_a
-
-        expect(@dangerfile.status_report[:markdowns][0].message).to include('### JaCoCo Code Coverage 55.59% :white_check_mark:')
-        expect(@dangerfile.status_report[:markdowns][0].message).to include('| Class | Covered | Required | Status |')
-        expect(@dangerfile.status_report[:markdowns][0].message).to include('|:---|:---:|:---:|:---:|')
-        expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 50% | 0% | :white_check_mark: |')
-        expect(@dangerfile.status_report[:markdowns][0].message).to include('| `io/sample/UseCase` | 66% | 0% | :white_check_mark: |')
-      end
-
       it 'defaults "only_check_new_files" attribute to false' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_c.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_project_coverage_percentage = 50
 
         @my_plugin.report path_a
 
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| `com/example/CachedRepository` | 50% | 0% | :white_check_mark: |')
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| `io/sample/UseCase` | 66% | 0% | :white_check_mark: |')
-      end
-
-      it 'does _not_ check modified files when "only_check_new_files" attribute is true' do
-        path_a = "#{File.dirname(__FILE__)}/fixtures/output_c.xml"
-
-        @my_plugin.minimum_project_coverage_percentage = 50
-        @my_plugin.minimum_class_coverage_percentage = 70
-        @my_plugin.only_check_new_files = true
-
-        @my_plugin.report path_a
-
-        expect(@dangerfile.status_report[:markdowns][0].message).to include('### JaCoCo Code Coverage 55.59% :white_check_mark:')
-        expect(@dangerfile.status_report[:markdowns][0].message).to include('| Class | Covered | Required | Status |')
-        expect(@dangerfile.status_report[:markdowns][0].message).to include('|:---|:---:|:---:|:---:|')
-        expect(@dangerfile.status_report[:markdowns][0].message).to include('| `io/sample/UseCase` | 66% | 70% | :warning: |')
-        expect(@dangerfile.status_report[:markdowns][0].message).not_to include('com/example/CachedRepository')
       end
 
       it 'adds a link to report' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_class_coverage_percentage = 80
         @my_plugin.minimum_project_coverage_percentage = 50
 
@@ -210,6 +186,7 @@ module Danger
       it 'When option "fail_no_coverage_data_found" is set to optionally fail, it doesn\'t fail the execution' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_class_coverage_percentage = 80
         @my_plugin.minimum_project_coverage_percentage = 50
 
@@ -219,6 +196,7 @@ module Danger
       it 'When option "fail_no_coverage_data_found" is not set, the execution fails on empty data' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_b.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_class_coverage_percentage = 80
         @my_plugin.minimum_project_coverage_percentage = 50
 
@@ -228,6 +206,7 @@ module Danger
       it 'When option "fail_no_coverage_data_found" is set to optionally fail, the execution fails on empty data' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_b.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_class_coverage_percentage = 80
         @my_plugin.minimum_project_coverage_percentage = 50
 
@@ -237,6 +216,7 @@ module Danger
       it 'When option "fail_no_coverage_data_found" is set to optionally warn (not fail), the execution doesn\'t fail on empty data' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_b.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_class_coverage_percentage = 80
         @my_plugin.minimum_project_coverage_percentage = 50
 
@@ -246,6 +226,7 @@ module Danger
       it 'prints default success subtitle' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_project_coverage_percentage = 30
         @my_plugin.minimum_class_coverage_percentage = 40
 
@@ -262,6 +243,7 @@ module Danger
       it 'prints default failure subtitle' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_project_coverage_percentage = 30
         @my_plugin.minimum_class_coverage_percentage = 60
 
@@ -278,6 +260,7 @@ module Danger
       it 'prints custom success subtitle' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_project_coverage_percentage = 30
         @my_plugin.minimum_class_coverage_percentage = 40
         @my_plugin.subtitle_success = 'You rock! 🔥'
@@ -295,6 +278,7 @@ module Danger
       it 'prints custom failure subtitle' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_project_coverage_percentage = 30
         @my_plugin.minimum_class_coverage_percentage = 60
         @my_plugin.subtitle_failure = 'Too bad :('
@@ -312,6 +296,8 @@ module Danger
       it 'prints default class column title' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
+
         @my_plugin.report path_a
 
         expect(@dangerfile.status_report[:markdowns][0].message).to include('| Class | Covered | Required | Status |')
@@ -320,6 +306,7 @@ module Danger
       it 'prints custom class column title' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.class_column_title = 'New files'
 
         @my_plugin.report path_a
@@ -330,6 +317,7 @@ module Danger
       it 'instruction coverage takes over all the rest coverages for classes' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_d.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_class_coverage_percentage = 50
 
         @my_plugin.report path_a
@@ -340,6 +328,7 @@ module Danger
       it 'branch coverage takes over line coverage for classes, when instruction coverage is not available' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_e.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_class_coverage_percentage = 50
 
         @my_plugin.report path_a
@@ -350,6 +339,7 @@ module Danger
       it 'line coverage takes over for classes, when both instruction coverage and branch coverage are not available' do
         path_a = "#{File.dirname(__FILE__)}/fixtures/output_f.xml"
 
+        @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_class_coverage_percentage = 50
 
         @my_plugin.report path_a
@@ -366,6 +356,7 @@ module Danger
         it 'applies minimum_composable_class_coverage_percentage' do
           path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+          @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
           @my_plugin.minimum_class_coverage_percentage = 55
           @my_plugin.minimum_composable_class_coverage_percentage = 45
 
@@ -384,6 +375,7 @@ module Danger
         it 'does not apply minimum_composable_class_coverage_percentage' do
           path_a = "#{File.dirname(__FILE__)}/fixtures/output_a.xml"
 
+          @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
           @my_plugin.minimum_class_coverage_percentage = 55
           @my_plugin.minimum_composable_class_coverage_percentage = 45
 

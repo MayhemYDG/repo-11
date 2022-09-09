@@ -1,6 +1,6 @@
 /Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/danger_jacoco.rb 38229d934b3315bb2a5a4eec18eb65f3c54d304f
-/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/gem_version.rb 1c81f68cb95296bfd592c1b57e0f2e6341f56b55
-/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/plugin.rb e99030c6a408c1bc77962b844d74c324daecad40
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/gem_version.rb 8f31621c2d22f454fcaacb2640694c9c6e7f1fb8
+/Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/plugin.rb e0262efb6d2458fa4ad4e2138c1f8a10fb11a1de
 /Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/sax_parser.rb 370e2799f8dbdf7d642c820214e6ea84c30c9cb0
 /Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/model/counter.rb 368f4a9811617b7a174ddf837a8fac49a4bc32a6
 /Users/alexanderbezverhni/workspace/junk/danger-jacoco/lib/jacoco/model/report.rb 7cf45ee71ff347a130320f6190ddb25525c7095d

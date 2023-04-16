@@ -148,9 +148,15 @@ const program_manager_json_1 = tslib_1.__importDefault(__nccwpck_require__(9638)
 const web3_js_1 = __nccwpck_require__(6785);
 const pda_1 = __nccwpck_require__(3688);
 const constants_1 = __nccwpck_require__(1036);
-const createProgramUpgrade = async ({ multisig, programId, programIndex, buffer, spill, authority, name, wallet, networkUrl }) => {
+const createProgramUpgrade = async ({ multisig, programId, buffer, spill, authority, name, wallet, networkUrl }) => {
+    var _a;
     const connection = new web3_js_1.Connection(networkUrl);
     const program = new anchor_1.Program(program_manager_json_1.default, constants_1.programManagerProgramId, new anchor_1.AnchorProvider(connection, new anchor_1.Wallet(wallet), anchor_1.AnchorProvider.defaultOptions()));
+    const programs = await program.account.managedProgram.all();
+    const programIndex = (_a = programs.find(p => p.account.programAddress.toString() === programId.toString() && p.account.multisig.toString() === multisig.toString())) === null || _a === void 0 ? void 0 : _a.account.managedProgramIndex;
+    if (typeof programIndex === undefined) {
+        throw new Error(`Program ${programId.toString()} not managed by this squad}`);
+    }
     const [programManagerPDA] = await (0, pda_1.getProgramManagerPDA)(multisig, constants_1.programManagerProgramId);
     const [managedProgramPDA] = await (0, pda_1.getManagedProgramPDA)(programManagerPDA, new anchor_1.BN(programIndex), constants_1.programManagerProgramId);
     const managedProgram = await program.account.managedProgram.fetch(managedProgramPDA);
@@ -76884,7 +76890,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
 /***/ 6157:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-const addon = require(__nccwpck_require__.ab + "build/Release/addon.node")
+const addon = require(__nccwpck_require__.ab + "prebuilds/darwin-x64/node.napi.node")
 module.exports = __nccwpck_require__(863)(new addon.Secp256k1())
 
 
@@ -92101,12 +92107,10 @@ const createProgramUpgrade_1 = __nccwpck_require__(5300);
 const utils_1 = __nccwpck_require__(918);
 const createIdlUpgrade_1 = __nccwpck_require__(9333);
 async function run() {
-    var _a;
     try {
         const networkUrl = core.getInput('network-url');
         const programMultisig = core.getInput('program-multisig');
         const programId = core.getInput('program-id');
-        const programIndex = core.getInput('program-index');
         const buffer = core.getInput('buffer');
         const spillAddress = core.getInput('spill-address');
         const authority = core.getInput('authority');
@@ -92118,7 +92122,6 @@ async function run() {
         core.debug(`networkUrl: ${networkUrl}`);
         core.debug(`programMultisig: ${programMultisig}`);
         core.debug(`programId: ${programId}`);
-        core.debug(`programIndex: ${programIndex}`);
         core.debug(`buffer: ${buffer}`);
         core.debug(`spillAddress: ${spillAddress}`);
         core.debug(`authority: ${authority}`);
@@ -92129,7 +92132,6 @@ async function run() {
         await (0, createProgramUpgrade_1.createProgramUpgrade)({
             multisig: (0, utils_1.publicKeyFrom)(programMultisig, 'programMultisig'),
             programId: (0, utils_1.publicKeyFrom)(programId, 'programId'),
-            programIndex: (_a = parseInt(programIndex)) !== null && _a !== void 0 ? _a : 1,
             buffer: (0, utils_1.publicKeyFrom)(buffer, 'buffer'),
             spill: (0, utils_1.publicKeyFrom)(spillAddress, 'spillAddress'),
             authority: (0, utils_1.publicKeyFrom)(authority, 'authority'),

@@ -40,7 +40,7 @@ export const createProgramUpgrade = async ({
   )
   const programs = await program.account.managedProgram.all()
   const programIndex = programs.find(
-    p => p.account.programAddress.toString() === programId.toString()
+    p => p.account.programAddress.toString() === programId.toString() && p.account.multisig.toString() === multisig.toString()
   )?.account.managedProgramIndex
 
   if (typeof programIndex === undefined) {

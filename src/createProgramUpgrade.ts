@@ -12,7 +12,6 @@ import {programManagerProgramId} from './constants'
 export const createProgramUpgrade = async ({
   multisig,
   programId,
-  programIndex,
   buffer,
   spill,
   authority,
@@ -22,7 +21,6 @@ export const createProgramUpgrade = async ({
 }: {
   multisig: PublicKey
   programId: PublicKey
-  programIndex: number
   buffer: PublicKey
   spill: PublicKey
   authority: PublicKey
@@ -40,6 +38,17 @@ export const createProgramUpgrade = async ({
       AnchorProvider.defaultOptions()
     )
   )
+  const programs = await program.account.managedProgram.all()
+  const programIndex = programs.find(
+    p => p.account.programAddress.toString() === programId.toString()
+  )?.account.managedProgramIndex
+
+  if (typeof programIndex === undefined) {
+    throw new Error(
+      `Program ${programId.toString()} not managed by this squad}`
+    )
+  }
+
   const [programManagerPDA] = await getProgramManagerPDA(
     multisig,
     programManagerProgramId

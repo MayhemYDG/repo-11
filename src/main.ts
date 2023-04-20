@@ -43,7 +43,7 @@ async function run(): Promise<void> {
       await createIdlUpgrade({
         multisig: publicKeyFrom(programMultisig, 'programMultisig'),
         programId: publicKeyFrom(programId, 'programId'),
-        buffer: publicKeyFrom(buffer, 'buffer'),
+        buffer: publicKeyFrom(buffer, 'idl-buffer'),
         authority: publicKeyFrom(authority, 'authority'),
         wallet: keypairFrom(keypair, 'keypair'),
         networkUrl: networkUrl,

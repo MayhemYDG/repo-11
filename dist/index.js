@@ -92143,7 +92143,7 @@ async function run() {
             await (0, createIdlUpgrade_1.createIdlUpgrade)({
                 multisig: (0, utils_1.publicKeyFrom)(programMultisig, 'programMultisig'),
                 programId: (0, utils_1.publicKeyFrom)(programId, 'programId'),
-                buffer: (0, utils_1.publicKeyFrom)(buffer, 'buffer'),
+                buffer: (0, utils_1.publicKeyFrom)(buffer, 'idl-buffer'),
                 authority: (0, utils_1.publicKeyFrom)(authority, 'authority'),
                 wallet: (0, utils_1.keypairFrom)(keypair, 'keypair'),
                 networkUrl: networkUrl,

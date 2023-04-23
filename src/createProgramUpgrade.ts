@@ -60,7 +60,8 @@ export const createProgramUpgrade = async ({
         squads.buildAddInstruction(multisig, transactionPDA, ix, idx + 1)
       )
     )),
-    await squads.buildActivateTransaction(multisig, transactionPDA)
+    await squads.buildActivateTransaction(multisig, transactionPDA),
+    await squads.buildApproveTransaction(multisig, transactionPDA)
   ]
 
   const tx = new Transaction()

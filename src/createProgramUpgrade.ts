@@ -1,13 +1,17 @@
-import {AnchorProvider, BN, Program, Wallet} from '@project-serum/anchor'
-import {ProgramManager} from './idl/program_manager'
-import programManager from './idl/program_manager.json'
-import {Connection, Keypair, PublicKey, SystemProgram} from '@solana/web3.js'
+// eslint-disable-next-line filenames/match-regex
 import {
-  getManagedProgramPDA,
-  getProgramManagerPDA,
-  getProgramUpgradePDA
-} from './pda'
-import {programManagerProgramId} from './constants'
+  Connection,
+  Keypair,
+  PublicKey,
+  Transaction,
+  sendAndConfirmTransaction
+} from '@solana/web3.js'
+import Squads from '@sqds/sdk'
+import {createIdlUpgradeInstruction} from './createIdlUpgradeInstruction'
+import {createProgramUpgradeInstruction} from './createProgramUpgradeInstruction'
+import NodeWallet from '@project-serum/anchor/dist/cjs/nodewallet'
+import {getTxPDA} from './pda'
+import {BN} from '@project-serum/anchor'
 
 export const createProgramUpgrade = async ({
   multisig,
@@ -15,77 +19,56 @@ export const createProgramUpgrade = async ({
   buffer,
   spill,
   authority,
-  name,
   wallet,
-  networkUrl
+  networkUrl,
+  idlBuffer
 }: {
   multisig: PublicKey
   programId: PublicKey
   buffer: PublicKey
   spill: PublicKey
   authority: PublicKey
-  name: string
+  idlBuffer: PublicKey
   wallet: Keypair
   networkUrl: string
 }) => {
   const connection = new Connection(networkUrl)
-  const program = new Program<ProgramManager>(
-    programManager as ProgramManager,
-    programManagerProgramId,
-    new AnchorProvider(
-      connection,
-      new Wallet(wallet),
-      AnchorProvider.defaultOptions()
-    )
+  const squads = Squads.endpoint(
+    connection.rpcEndpoint,
+    new NodeWallet(wallet),
+    {
+      commitmentOrConfig: 'finalized'
+    }
   )
-  const programs = await program.account.managedProgram.all()
-  const programIndex = programs.find(
-    p => p.account.programAddress.toString() === programId.toString() && p.account.multisig.toString() === multisig.toString()
-  )?.account.managedProgramIndex
 
-  if (typeof programIndex === undefined) {
-    throw new Error(
-      `Program ${programId.toString()} not managed by this squad}`
-    )
-  }
+  const instructions = [
+    await createIdlUpgradeInstruction(programId, idlBuffer, authority),
+    await createProgramUpgradeInstruction(programId, buffer, authority, spill)
+  ]
 
-  const [programManagerPDA] = await getProgramManagerPDA(
+  const nextTransactionIndex = await squads.getNextTransactionIndex(multisig)
+  const [transactionPDA] = getTxPDA(
     multisig,
-    programManagerProgramId
+    new BN(nextTransactionIndex, 10),
+    squads.multisigProgramId
   )
-  const [managedProgramPDA] = await getManagedProgramPDA(
-    programManagerPDA,
-    new BN(programIndex),
-    programManagerProgramId
-  )
-  const managedProgram = await program.account.managedProgram.fetch(
-    managedProgramPDA
-  )
-  if (managedProgram.programAddress.toString() !== programId.toString()) {
-    throw new Error('Mismatched program index')
-  }
-  const [programUpgradePDA] = getProgramUpgradePDA(
-    managedProgramPDA,
-    new BN(managedProgram.upgradeIndex + 1),
-    programManagerProgramId
-  )
-  console.log(`Creating program upgrade with
-    multisig: ${multisig.toString()},
-    programManager: ${programManagerPDA.toString()},
-    managedProgram: ${managedProgramPDA.toString()},
-    programUpgrade: ${programUpgradePDA.toString()}
-  `)
-  const methods = program.methods
-    .createProgramUpgrade(buffer, spill, authority, name)
-    .accountsStrict({
-      creator: wallet.publicKey,
-      multisig: multisig,
-      programManager: programManagerPDA,
-      managedProgram: managedProgramPDA,
-      programUpgrade: programUpgradePDA,
-      systemProgram: SystemProgram.programId
-    })
-  const txid = await methods.rpc()
+
+  const realIxns = [
+    await squads.buildCreateTransaction(multisig, 1, nextTransactionIndex),
+    ...(await Promise.all(
+      instructions.map((ix, idx) =>
+        squads.buildAddInstruction(multisig, transactionPDA, ix, idx)
+      )
+    )),
+    await squads.buildActivateTransaction(multisig, transactionPDA)
+  ]
+
+  const tx = new Transaction()
+  tx.feePayer = wallet.publicKey
+  tx.recentBlockhash = (await connection.getRecentBlockhash()).blockhash
+  tx.add(...realIxns)
+  const txid = await sendAndConfirmTransaction(connection, tx, [wallet])
+
   console.log(
     `Successfully created program upgrade for MS_PDA ${multisig.toString()} https://explorer.solana.com/tx/${txid}`
   )

@@ -31,7 +31,7 @@ async function run(): Promise<void> {
       multisig: publicKeyFrom(programMultisig, 'programMultisig'),
       programId: publicKeyFrom(programId, 'programId'),
       buffer: publicKeyFrom(buffer, 'buffer'),
-      idlBuffer: publicKeyFrom(buffer, 'idl-buffer'),
+      idlBuffer: publicKeyFrom(idlBuffer, 'idl-buffer'),
       spill: publicKeyFrom(spillAddress, 'spillAddress'),
       authority: publicKeyFrom(authority, 'authority'),
       wallet: keypairFrom(keypair, 'keypair'),

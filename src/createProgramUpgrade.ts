@@ -57,7 +57,7 @@ export const createProgramUpgrade = async ({
     await squads.buildCreateTransaction(multisig, 1, nextTransactionIndex),
     ...(await Promise.all(
       instructions.map((ix, idx) =>
-        squads.buildAddInstruction(multisig, transactionPDA, ix, idx)
+        squads.buildAddInstruction(multisig, transactionPDA, ix, idx + 1)
       )
     )),
     await squads.buildActivateTransaction(multisig, transactionPDA)

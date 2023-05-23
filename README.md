@@ -10,6 +10,13 @@ This repository holds a few example Python scripts that use Contrast's REST APIs
 You can run these scripts locally with a Python install, or, in a container with the provided `Dockerfile`
 
 ### Container use
+
+#### Pre-built
+```bash
+docker run -it --env-file=contrast.env -v $PWD/output:/usr/src/app/output ghcr.io/contrast-security-oss/example-teamserver-api-scripts:main python <script.py> <...args...>
+```
+
+#### Local build
 ```bash
 docker build . --tag contrast-scripts # Build the container
 docker run -it --env-file=contrast.env -v $PWD/output:/usr/src/app/output contrast-scripts python <script.py> <...args...> # Run the container

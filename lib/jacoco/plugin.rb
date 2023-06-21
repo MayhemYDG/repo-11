@@ -31,7 +31,7 @@ module Danger
       setup_texts
       @files_to_check = [] unless files_to_check
       @files_extension = ['.kt', '.java'] unless files_extension
-      @file_to_create_on_failure = 'danger_jacoco_failure_status_file.txt' unless file_to_create_on_failure
+      @file_to_create_on_failure = 'danger_jacoco_failure_status_file.json' unless file_to_create_on_failure
     end
 
     # Initialize the plugin with configured optional texts
@@ -99,7 +99,7 @@ module Danger
       report_markdown.insert(header.length, "#### #{subtitle}\n")
       markdown(report_markdown)
 
-      report_fails(class_coverage_above_minimum, total_covered)
+      report_fails(parser, report_url, class_coverage_above_minimum, total_covered)
     end
     # rubocop:enable Style/AbcSize
 
@@ -223,13 +223,13 @@ module Danger
     end
 
     # rubocop:disable Style/SignalException
-    def report_fails(class_coverage_above_minimum, total_covered)
+    def report_fails(parser, report_url, class_coverage_above_minimum, total_covered)
       if total_covered[:covered] < minimum_project_coverage_percentage
         # fail danger if total coverage is smaller than minimum_project_coverage_percentage
         covered = total_covered[:covered]
         fail("Total coverage of #{covered}%. Improve this to at least #{minimum_project_coverage_percentage}%")
         # rubocop:disable Lint/UnreachableCode (rubocop mistakenly thinks that this line is unreachable since priorly called "fail" raises an error, but in fact "fail" is caught and handled)
-        create_status_file_on_failure if class_coverage_above_minimum
+        create_status_file_on_failure(parser, report_url) if class_coverage_above_minimum
         # rubocop:enable Lint/UnreachableCode
       end
 
@@ -237,13 +237,20 @@ module Danger
 
       fail("Class coverage is below minimum. Improve to at least #{minimum_class_coverage_percentage}%")
       # rubocop:disable Lint/UnreachableCode (rubocop mistakenly thinks that this line is unreachable since priorly called "fail" raises an error, but in fact "fail" is caught and handled)
-      create_status_file_on_failure
+      create_status_file_on_failure(parser, report_url)
       # rubocop:enable Lint/UnreachableCode
     end
     # rubocop:enable Style/SignalException
 
-    def create_status_file_on_failure
-      File.open(file_to_create_on_failure, 'w') {}
+    def create_status_file_on_failure(parser, report_url)
+      data = []
+      parser.classes.each do |jacoco_class|
+        data.push({ 'name' => jacoco_class.name, 'path' => report_filepath(jacoco_class.name, report_url) })
+      end
+
+      File.open(file_to_create_on_failure, 'w') do |f|
+        f.write({ 'failures' => data }.to_json)
+      end
     end
 
     def markdown_class(parser, report_markdown, report_url, class_to_file_path_hash)
@@ -265,8 +272,15 @@ module Danger
       if report_url.empty?
         "`#{class_name}`"
       else
-        report_filepath = "#{class_name.gsub(%r{/(?=[^/]*/.)}, '.')}.html"
-        "[`#{class_name}`](#{report_url + report_filepath})"
+        "[`#{class_name}`](#{report_url + report_filepath(class_name, report_url)})"
+      end
+    end
+
+    def report_filepath(class_name, report_url)
+      if report_url.empty?
+        class_name
+      else
+        "#{class_name.gsub(%r{/(?=[^/]*/.)}, '.')}.html"
       end
     end
   end

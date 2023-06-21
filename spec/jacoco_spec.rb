@@ -58,7 +58,7 @@ module Danger
         @my_plugin.files_to_check = ['src/java/com/example/CachedRepository.java', 'src/java/io/sample/UseCase.java']
         @my_plugin.minimum_class_coverage_percentage = 60
 
-        expect(File).to receive(:open).with('danger_jacoco_failure_status_file.txt', 'w')
+        expect(File).to receive(:open).with('danger_jacoco_failure_status_file.json', 'w')
         @my_plugin.report path_a
       end
 

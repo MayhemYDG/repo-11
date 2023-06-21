@@ -278,7 +278,7 @@ module Danger
 
     def report_filepath(class_name, report_url)
       if report_url.empty?
-        "`#{class_name}`"
+        class_name
       else
         "#{class_name.gsub(%r{/(?=[^/]*/.)}, '.')}.html"
       end

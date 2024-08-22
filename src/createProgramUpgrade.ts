@@ -66,7 +66,7 @@ export const createProgramUpgrade = async ({
 
   const tx = new Transaction()
   tx.feePayer = wallet.publicKey
-  tx.recentBlockhash = (await connection.getRecentBlockhash()).blockhash
+  tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash
   tx.add(...realIxns)
   const txid = await sendAndConfirmTransaction(connection, tx, [wallet])
 

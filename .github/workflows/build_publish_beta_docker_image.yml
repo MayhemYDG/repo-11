@@ -299,7 +299,7 @@ jobs:
       shell: bash
     - continue-on-error: true
       name: Build and publish image
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         cache-from: type=gha, scope=${{ github.workflow }}
         cache-to: type=gha, mode=max, scope=${{ github.workflow }}

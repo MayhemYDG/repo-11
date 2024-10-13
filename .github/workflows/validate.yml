@@ -548,7 +548,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       name: "\U0001F680 Release"
-      uses: cycjimmy/semantic-release-action@v2
+      uses: cycjimmy/semantic-release-action@v4
       with:
         branches: "[\n  '+([0-9])?(.{+([0-9]),x}).x',\n  'main',\n  'next',\n  'next-major',\n\
           \  {name: 'beta', prerelease: true},\n  {name: 'alpha', prerelease: true}\n\

@@ -252,7 +252,7 @@ jobs:
       uses: actions/checkout@v2
     - continue-on-error: true
       name: "\u2394 Setup node"
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node }}
     - continue-on-error: true
@@ -530,7 +530,7 @@ jobs:
       uses: actions/checkout@v2
     - continue-on-error: true
       name: "\u2394 Setup node"
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         node-version: 14
     - continue-on-error: true

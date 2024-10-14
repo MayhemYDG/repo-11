@@ -273,7 +273,7 @@ jobs:
     - continue-on-error: true
       if: always()
       name: Annotate tests
-      uses: guyarb/golang-test-annotations@a7869d394e8879bfc2e5dba4f1ea8bbb77a74f59
+      uses: guyarb/golang-test-annotations@2941118d7ef622b1b3771d1ff6eae9e90659eb26
       with:
         test-results: gotestsum-report.json
     - name: after

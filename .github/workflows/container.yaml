@@ -262,7 +262,7 @@ jobs:
     - continue-on-error: true
       id: meta
       name: Extract metadata (tags, labels) for Docker
-      uses: docker/metadata-action@e5622373a38e60fb6d795a4421e56882f2d7a681
+      uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
     - continue-on-error: true

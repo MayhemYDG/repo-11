@@ -258,7 +258,7 @@ jobs:
         '
     - continue-on-error: true
       name: Install Helm
-      uses: azure/setup-helm@v3.5
+      uses: azure/setup-helm@v4
       with:
         version: v3.9.0
     - continue-on-error: true

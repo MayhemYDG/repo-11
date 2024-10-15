@@ -30,7 +30,7 @@ COPY --from=uibuilder /workspace/ui/build /workspace/ui/build
 RUN go mod download
 RUN make pyrra
 
-FROM alpine:3.15.1
+FROM alpine:3.20.3
 WORKDIR /
 COPY --from=builder /workspace/pyrra /usr/bin/pyrra
 

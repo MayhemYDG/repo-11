@@ -245,7 +245,7 @@ jobs:
 
         sudo sh -c ''echo 1 > /proc/sys/net/ipv4/ip_forward'''
     - continue-on-error: true
-      uses: actions/stale@v7
+      uses: actions/stale@v9
       with:
         close-pr-message: Closed as inactive. Feel free to reopen if this PR is still
           being worked on.

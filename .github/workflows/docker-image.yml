@@ -265,7 +265,7 @@ jobs:
     - continue-on-error: true
       id: meta
       name: Extract metadata (tags, labels) for Docker
-      uses: docker/metadata-action@v4
+      uses: docker/metadata-action@v5
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         tags: 'type=ref,event=branch

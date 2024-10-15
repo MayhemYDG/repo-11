@@ -292,7 +292,7 @@ jobs:
     - continue-on-error: true
       id: cache-cypress
       name: Cache cypress
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         key: ${{ runner.OS }}-cache-cypress-${{ hashFiles('**/package-lock.json',
           '.github/workflows/build_and_test.yml') }}
@@ -301,7 +301,7 @@ jobs:
       id: cache-nodemodules
       if: steps.cache-cypress.outputs.cache-hit == 'true'
       name: Cache node modules
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         key: ${{ runner.OS }}-node_modules-${{ hashFiles('**/package-lock.json', '.github/workflows/build_and_test.yml')
           }}
@@ -312,14 +312,14 @@ jobs:
           '
     - continue-on-error: true
       name: Cache meteor local
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         key: ${{ runner.OS }}-meteor_cache-${{ hashFiles('.meteor/versions', '.github/workflows/build_and_test.yml')
           }}
         path: ./.meteor/local
     - continue-on-error: true
       name: Cache meteor
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         key: ${{ runner.OS }}-meteor-${{ hashFiles('.meteor/release', '.github/workflows/build_and_test.yml')
           }}
@@ -708,7 +708,7 @@ jobs:
     - continue-on-error: true
       id: cache-nodemodules
       name: Cache node modules
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         key: ${{ runner.OS }}-node_modules-${{ hashFiles('**/package-lock.json', '.github/workflows/build_and_test.yml')
           }}
@@ -719,14 +719,14 @@ jobs:
           '
     - continue-on-error: true
       name: Cache meteor local
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         key: ${{ runner.OS }}-meteor_cache-${{ hashFiles('.meteor/versions', '.github/workflows/build_and_test.yml')
           }}
         path: ./.meteor/local
     - continue-on-error: true
       name: Cache meteor
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         key: ${{ runner.OS }}-meteor-${{ hashFiles('.meteor/release', '.github/workflows/build_and_test.yml')
           }}

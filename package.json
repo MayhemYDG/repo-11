@@ -138,7 +138,7 @@
 		"@google-cloud/vision": "^1.11.0",
 		"@nivo/bar": "^0.61.1",
 		"@nivo/heatmap": "^0.61.0",
-		"@nivo/line": "^0.61.1",
+		"@nivo/line": "^0.87.0",
 		"@nivo/pie": "^0.61.1",
 		"@rocket.chat/apps-engine": "1.25.0",
 		"@rocket.chat/css-in-js": "^0.24.0",

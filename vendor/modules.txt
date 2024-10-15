@@ -171,12 +171,15 @@ github.com/kubernetes-csi/csi-lib-utils/rpc
 ## explicit; go 1.16
 github.com/kubernetes-csi/csi-test/v5/driver
 github.com/kubernetes-csi/csi-test/v5/utils
-# github.com/kubernetes-csi/external-snapshotter/client/v6 v6.2.0
-## explicit; go 1.19
+# github.com/kubernetes-csi/external-snapshotter/client/v6 v6.3.0
+## explicit; go 1.20
+github.com/kubernetes-csi/external-snapshotter/client/v6/apis/volumegroupsnapshot/v1alpha1
 github.com/kubernetes-csi/external-snapshotter/client/v6/apis/volumesnapshot/v1
 github.com/kubernetes-csi/external-snapshotter/client/v6/clientset/versioned
 github.com/kubernetes-csi/external-snapshotter/client/v6/clientset/versioned/fake
 github.com/kubernetes-csi/external-snapshotter/client/v6/clientset/versioned/scheme
+github.com/kubernetes-csi/external-snapshotter/client/v6/clientset/versioned/typed/volumegroupsnapshot/v1alpha1
+github.com/kubernetes-csi/external-snapshotter/client/v6/clientset/versioned/typed/volumegroupsnapshot/v1alpha1/fake
 github.com/kubernetes-csi/external-snapshotter/client/v6/clientset/versioned/typed/volumesnapshot/v1
 github.com/kubernetes-csi/external-snapshotter/client/v6/clientset/versioned/typed/volumesnapshot/v1/fake
 # github.com/mailru/easyjson v0.7.7
@@ -614,7 +617,7 @@ gopkg.in/yaml.v2
 # gopkg.in/yaml.v3 v3.0.1
 ## explicit
 gopkg.in/yaml.v3
-# k8s.io/api v0.27.0 => k8s.io/api v0.27.0
+# k8s.io/api v0.28.0 => k8s.io/api v0.27.0
 ## explicit; go 1.20
 k8s.io/api/admission/v1
 k8s.io/api/admission/v1beta1
@@ -674,7 +677,7 @@ k8s.io/api/storage/v1beta1
 ## explicit; go 1.20
 k8s.io/apiextensions-apiserver/pkg/apis/apiextensions
 k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1
-# k8s.io/apimachinery v0.27.0 => k8s.io/apimachinery v0.27.0
+# k8s.io/apimachinery v0.28.0 => k8s.io/apimachinery v0.27.0
 ## explicit; go 1.20
 k8s.io/apimachinery/pkg/api/equality
 k8s.io/apimachinery/pkg/api/errors
@@ -876,7 +879,7 @@ k8s.io/apiserver/plugin/pkg/audit/truncate
 k8s.io/apiserver/plugin/pkg/audit/webhook
 k8s.io/apiserver/plugin/pkg/authenticator/token/webhook
 k8s.io/apiserver/plugin/pkg/authorizer/webhook
-# k8s.io/client-go v0.27.0 => k8s.io/client-go v0.27.0
+# k8s.io/client-go v0.28.0 => k8s.io/client-go v0.27.0
 ## explicit; go 1.20
 k8s.io/client-go/applyconfigurations/admissionregistration/v1
 k8s.io/client-go/applyconfigurations/admissionregistration/v1alpha1

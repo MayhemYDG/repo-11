@@ -132,7 +132,7 @@ val awaitilityVersion = "4.2.1"
 val log4jVersion = "2.20.0"
 
 // Integration tests are not necessary to change these
-val derbyVersion = "10.15.2.0"
+val derbyVersion = "10.17.1.0"
 val mockitoVersion = "5.12.0"
 
 sourceSets {

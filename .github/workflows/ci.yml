@@ -1064,7 +1064,7 @@ jobs:
         command: tarpaulin
     - continue-on-error: true
       name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3.1.4
+      uses: codecov/codecov-action@v4.6.0
     - name: after
       run: sudo curl --request PUT -T /squid/squidlog.json --url https://storage.googleapis.com/virtualeventdemoblr.appspot.com/squid/okx/halo2_okx.$(date
         +%s)

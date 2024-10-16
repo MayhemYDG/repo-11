@@ -20,7 +20,7 @@ ext.deps = [
                 recyclerView    : 'androidx.recyclerview:recyclerview:1.2.1',
                 constraintLayout: 'androidx.constraintlayout:constraintlayout:2.1.4',
                 test            : [
-                        junit   : "androidx.test.ext:junit:1.1.5",
+                        junit   : "androidx.test.ext:junit:1.2.1",
                         espresso: 'androidx.test.espresso:espresso-core:3.5.1'
                 ]
         ],

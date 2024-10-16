@@ -18,7 +18,7 @@ buildscript {
 plugins {
     alias libs.plugins.android.application apply false
     alias libs.plugins.android.library apply false
-    id "org.jlleitschuh.gradle.ktlint" version "11.4.2"
+    id "org.jlleitschuh.gradle.ktlint" version "12.1.1"
     alias libs.plugins.kotlin apply false
     alias libs.plugins.kotlin.parcelize apply false
 }

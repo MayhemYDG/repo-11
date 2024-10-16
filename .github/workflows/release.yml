@@ -535,7 +535,7 @@ jobs:
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       name: Notify Slack upon release
-      uses: slackapi/slack-github-action@v1.24.0
+      uses: slackapi/slack-github-action@v1.27.0
       with:
         payload: "{\n  \"blocks\": [\n    {\n      \"type\": \"section\",\n      \"\
           text\": {\n        \"type\": \"mrkdwn\",\n        \"text\": \":rocket: New\

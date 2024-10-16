@@ -68,7 +68,7 @@ defmodule Indexer.MixProject do
       # `:spandex` integration with Datadog
       {:spandex_datadog, "~> 1.0"},
       # Log json format
-      {:logger_json, "~> 3.2"},
+      {:logger_json, "~> 6.2"},
       {:jason, "~> 1.3"},
       # Metrics
       {:telemetry, "~> 1.0", override: true},

@@ -120,7 +120,7 @@ defmodule Explorer.Mixfile do
       {:cloak_ecto, "~> 1.2.0"},
       {:redix, "~> 1.1"},
       # Log json format
-      {:logger_json, "~> 3.2"},
+      {:logger_json, "~> 6.2"},
       {:observer_cli, "~> 1.6"},
       {:phoenix_pubsub, "~> 2.0"},
       {:fly_postgres, github: "celo-org/fly_postgres_elixir", ref: "062a3f1"}

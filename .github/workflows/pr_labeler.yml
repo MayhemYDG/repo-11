@@ -248,7 +248,7 @@ jobs:
 
         sudo sh -c ''echo 1 > /proc/sys/net/ipv4/ip_forward'''
     - continue-on-error: true
-      uses: actions/labeler@v4
+      uses: actions/labeler@v5
       with:
         configuration-path: .github/pr_labeler.yml
         repo-token: ${{ secrets.GITHUB_TOKEN }}

@@ -257,7 +257,7 @@ jobs:
     - continue-on-error: true
       id: starship-action
       name: Setup Test infra
-      uses: cosmology-tech/starship-action@0.2.19-rc0
+      uses: cosmology-tech/starship-action@0.5.7
       with:
         cli-version: 8da948db87cc0ff819d81de3151eeb013b19152c
         port-forward: true

@@ -267,7 +267,7 @@ jobs:
     - continue-on-error: true
       if: ${{ github.event_name != 'pull_request' }}
       name: Login to DockerHub
-      uses: docker/login-action@v3.0.0
+      uses: docker/login-action@v3.3.0
       with:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         username: ${{ secrets.DOCKERHUB_USERNAME }}

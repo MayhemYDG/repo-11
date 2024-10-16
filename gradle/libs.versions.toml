@@ -8,7 +8,7 @@ kotlin = "1.7.20"
 
 [libraries]
 androidx-compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
-androidx-compose-bom = { module = "androidx.compose:compose-bom", version = "2023.01.00" }
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version = "2024.09.03" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-material = { module = "androidx.compose.material:material" }

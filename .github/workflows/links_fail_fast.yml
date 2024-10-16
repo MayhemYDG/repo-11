@@ -250,7 +250,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       name: Link Checker
-      uses: lycheeverse/lychee-action@9ace499fe66cee282a29eaa628fdac2c72fa087f
+      uses: lycheeverse/lychee-action@7cd0af4c74a61395d455af97419279d86aafaede
       with:
         args: --verbose --no-progress './**/*.md' './**/*.html' './**/*.js' './**/*.ts'
         fail: true

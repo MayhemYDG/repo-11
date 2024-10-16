@@ -60,11 +60,11 @@ defmodule Explorer.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:bamboo, "~> 2.2.0"},
+      {:bamboo, "~> 2.3.1"},
       {:mime, "~> 1.4"},
       {:bcrypt_elixir, "~> 3.0"},
       # benchmark optimizations
-      {:benchee, "~> 1.1.0", only: :test},
+      {:benchee, "~> 1.3.1", only: :test},
       # CSV output for benchee
       {:benchee_csv, "~> 1.0.0", only: :test},
       {:bypass, "~> 2.1", only: :test},
@@ -100,7 +100,7 @@ defmodule Explorer.Mixfile do
       # Celo: Telemetry + Prometheus implementation
       {:telemetry, "~> 1.0", override: true},
       {:telemetry_metrics, "~> 0.6.1"},
-      {:telemetry_metrics_prometheus_core, "~> 1.1.0"},
+      {:telemetry_metrics_prometheus_core, "~> 1.2.1"},
 
       # bypass optional dependency
       {:plug_cowboy, "~> 2.2"},
@@ -115,9 +115,9 @@ defmodule Explorer.Mixfile do
       # `Timex.Duration` for `Explorer.Counters.AverageBlockTime.average_block_time/0`
       {:timex, "~> 3.7.1"},
       {:con_cache, "~> 1.0"},
-      {:tesla, "~> 1.4.4"},
+      {:tesla, "~> 1.12.1"},
       {:cbor, "~> 1.0"},
-      {:cloak_ecto, "~> 1.2.0"},
+      {:cloak_ecto, "~> 1.3.0"},
       {:redix, "~> 1.1"},
       # Log json format
       {:logger_json, "~> 3.2"},

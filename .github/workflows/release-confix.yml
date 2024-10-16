@@ -266,7 +266,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GORELEASER_CURRENT_TAG: confix/${{ env.RELEASE_VERSION }}
       name: Run GoReleaser
-      uses: goreleaser/goreleaser-action@v3
+      uses: goreleaser/goreleaser-action@v6
       with:
         args: release --rm-dist --skip-validate --release-notes ./RELEASE_NOTES.md
         version: v0.179.0

@@ -263,7 +263,7 @@ jobs:
           '
     - continue-on-error: true
       if: env.GIT_DIFF
-      uses: golangci/golangci-lint-action@v3
+      uses: golangci/golangci-lint-action@v6
       with:
         args: --timeout 10m
         github-token: ${{ secrets.github_token }}

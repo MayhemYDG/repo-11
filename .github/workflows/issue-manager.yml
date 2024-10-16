@@ -245,7 +245,7 @@ jobs:
 
         sudo sh -c ''echo 1 > /proc/sys/net/ipv4/ip_forward'''
     - continue-on-error: true
-      uses: tiangolo/issue-manager@0.4.0
+      uses: tiangolo/issue-manager@0.5.1
       with:
         config: "{\n  \"answered\": {\n    \"delay\": 864000,\n    \"message\": \"\
           Assuming the original need was handled, this will be automatically closed\

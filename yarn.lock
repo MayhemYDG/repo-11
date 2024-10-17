@@ -14449,7 +14449,7 @@ __metadata:
     update-electron-app: "npm:^3.0.0"
     vite: "npm:^5.3.1"
     vite-plugin-static-copy: "npm:^1.0.5"
-    wavesurfer.js: "npm:^7.8.0"
+    wavesurfer.js: "npm:^7.8.7"
     zod: "npm:^3.23.8"
     zod-to-json-schema: "npm:^3.23.1"
     zx: "npm:^8.1.3"
@@ -27112,10 +27112,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wavesurfer.js@npm:^7.8.0":
-  version: 7.8.0
-  resolution: "wavesurfer.js@npm:7.8.0"
-  checksum: 10c0/ad6c5f89e1592f5cf59bcfcabdd7bab976efcb482d184dc125a585db2c9bb82120cab3547675da5c69fc2e1a36c06f6655a34e0e7a1e3bc7097d805c54707376
+"wavesurfer.js@npm:^7.8.7":
+  version: 7.8.7
+  resolution: "wavesurfer.js@npm:7.8.7"
+  checksum: 10c0/841ae671b659208d21332078435c00acc380eca731b1b0ebae04a92db65b3c5c0caf4b1b02f29d07bd47edc795eb8acb74ba84d8aa3bb75ce09f51839d9930dd
   languageName: node
   linkType: hard
 

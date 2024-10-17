@@ -538,7 +538,7 @@ jobs:
         \ngit tag \"$new_tag\"\ngit push --tags\necho \"tag_name=$new_tag\" >> $GITHUB_OUTPUT\n"
     - continue-on-error: true
       name: Publish bootstrap zips to GitHub release
-      uses: termux/upload-release-action@v4.1.0
+      uses: termux/upload-release-action@v4.2.0
       with:
         checksums: sha256,sha512,md5
         file: '*.zip'

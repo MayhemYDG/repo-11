@@ -273,14 +273,14 @@ jobs:
     - continue-on-error: true
       if: contains(github.ref, 'refs/head/main')
       name: Push to GitHub Packages - Nightly
-      uses: docker/build-push-action@v3.0.0
+      uses: docker/build-push-action@v6.9.0
       with:
         push: true
         tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:nightly
     - continue-on-error: true
       if: contains(github.ref, 'refs/tags/v')
       name: Push to GitHub Packages - Release
-      uses: docker/build-push-action@v3.0.0
+      uses: docker/build-push-action@v6.9.0
       with:
         push: true
         tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest,${{ env.REGISTRY }}/${{

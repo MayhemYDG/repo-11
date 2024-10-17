@@ -273,7 +273,7 @@ jobs:
     - continue-on-error: true
       id: docker_meta
       name: Docker meta
-      uses: crazy-max/ghaction-docker-meta@v1
+      uses: crazy-max/ghaction-docker-meta@v5
       with:
         images: jpillora/chisel
         tag-latest: true

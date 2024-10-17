@@ -262,7 +262,7 @@ jobs:
 
         '
     - continue-on-error: true
-      uses: FirebaseExtended/action-hosting-deploy@4d0d0023f1d92b9b7d16dda64b3d7abd2c98974b
+      uses: FirebaseExtended/action-hosting-deploy@0cbcac4740c2bfb00d632f0b863b57713124eb5a
       with:
         channelId: ${{ github.event_name == 'push' && 'live' || '' }}
         entryPoint: specification/

@@ -263,7 +263,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PRE_RELEASE: 'false'
       name: Release
-      uses: anton-yurchenko/git-release@v4.2
+      uses: anton-yurchenko/git-release@v6.0
       with:
         args: 'output/binaries-*/*.zip
 

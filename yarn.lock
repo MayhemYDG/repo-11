@@ -2149,18 +2149,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-multi-entry@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "@rollup/plugin-multi-entry@npm:6.0.0"
+"@rollup/plugin-multi-entry@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "@rollup/plugin-multi-entry@npm:6.0.1"
   dependencies:
     "@rollup/plugin-virtual": ^3.0.0
     matched: ^5.0.1
   peerDependencies:
-    rollup: ^1.20.0||^2.0.0||^3.0.0
+    rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
   peerDependenciesMeta:
     rollup:
       optional: true
-  checksum: e95fa7728d4b9d6dc7cc77e52eadc79acb376a5fe0a38e595ddecce81f936fa8e025d58e0b22f74d2ec50944ad4188e54fa0934662560adb793327e668bd26af
+  checksum: 8b8067eef2113cc015e2bf6d8daeaa0f8c05187a831b470b0e2125b71573949b9f9d92cc446123ba434f7dcb05e3bd4477ba25f0072ff18772d87e0381bdcf93
   languageName: node
   linkType: hard
 
@@ -6961,7 +6961,7 @@ __metadata:
     "@rollup/plugin-babel": ^6.0.3
     "@rollup/plugin-commonjs": ^25.0.4
     "@rollup/plugin-json": ^6.0.0
-    "@rollup/plugin-multi-entry": ^6.0.0
+    "@rollup/plugin-multi-entry": ^6.0.1
     "@rollup/plugin-node-resolve": ^15.2.1
     "@types/chrome": ^0.0.246
     "@typescript-eslint/eslint-plugin": ^6.7.0
